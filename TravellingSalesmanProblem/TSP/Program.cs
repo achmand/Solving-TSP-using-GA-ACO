@@ -1,4 +1,6 @@
-﻿using Domain.Common;
+﻿using System;
+using System.Collections.Generic;
+using Domain.Common;
 
 namespace TSP
 {
@@ -6,7 +8,18 @@ namespace TSP
     {
         static void Main(string[] args)
         {
-            var v = new Vector2(0, 5);
+            //var testing = new Dictionary<int, Vector2>(10)
+            //{
+                
+            //};
+
+            var v1= new Vector2(0,0);
+            var v2= new Vector2(0,7);
+
+            var distance = v2 - v1;
+            var sqrMag = distance.Magnitude;
+            Console.WriteLine(sqrMag);
+            Console.ReadLine();
         }
     }
 }
