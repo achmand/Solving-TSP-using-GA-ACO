@@ -1,24 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Domain.Common;
 
 namespace TSP
 {
     class Program
     {
+        // TODO -> Equality Comparer for Dictionary and use enumarator !!!!
+
         static void Main(string[] args)
         {
-            //var testing = new Dictionary<int, Vector2>(10)
-            //{
-                
-            //};
+            var test = false;
+            var tspCities = new TspInstance();
 
-            var v1= new Vector2(0,0);
-            var v2= new Vector2(0,7);
+            // TODO -> Properly get inputs from TSP files 
+            foreach (var line in File.ReadLines("C:/Users/Nalyd/Desktop/Current Projects/Github/Solving-TSP-using-GA-ACO/TravellingSalesmanProblem/TSP/berlin52.tsp"))
+            {
+                if (line == "EOF")
+                {
+                    test = false;
+                }
 
-            var distance = v2 - v1;
-            var sqrMag = distance.Magnitude;
-            Console.WriteLine(sqrMag);
+                if (test)
+                {
+                    var details = line.Split(null);
+                    tspCities.Cities.Add(Convert.ToInt32(details[0]), new Vector2(float.Parse(details[1]), float.Parse(details[2])));
+                }
+
+                if (line == "NODE_COORD_SECTION")
+                {
+                    test = true;
+                }
+            }
+
+            Console.WriteLine(tspCities.CitiesToString());
             Console.ReadLine();
         }
     }

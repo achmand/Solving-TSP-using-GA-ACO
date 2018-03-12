@@ -1,12 +1,12 @@
 ﻿using System;
 
+/* 
+ * <author>Dylan Vassallo</author>
+ * <date>12/03/2018</date>
+*/
+
 namespace Domain.Common
 {
-    /* 
-     * <author>Dylan Vassallo</author>
-     * <date>12/03/2018</date>
-    */
-
     /// <summary>
     /// Represents a vector with two single-precision floating-point values.
     /// </summary>
@@ -104,6 +104,6 @@ namespace Domain.Common
             return new Vector2(v2.X - v1.X, v2.Y - v1.Y);
         }
 
-        #endregion
+        #endregion operators
     }
 }

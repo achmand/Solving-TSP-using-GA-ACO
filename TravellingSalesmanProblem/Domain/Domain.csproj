@@ -40,13 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\TspSolution.cs" />
+    <Compile Include="Common\TspInstance.cs" />
     <Compile Include="Common\Vector2.cs" />
+    <Compile Include="Common\Integer32EqualityComparer.cs" />
+    <Compile Include="GeneticAlgorithm\TspGeneticAlgorithm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AntColonyOptimization\" />
-    <Folder Include="GeneticAlgorithm\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
