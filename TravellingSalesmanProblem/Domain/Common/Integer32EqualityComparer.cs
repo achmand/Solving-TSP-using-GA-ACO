@@ -15,6 +15,10 @@ namespace Domain.Common
 
     public sealed class Integer32EqualityComparer : IEqualityComparer<int>
     {
+        private static Integer32EqualityComparer _defaultInstance;
+
+        public static Integer32EqualityComparer Default => _defaultInstance ?? (_defaultInstance = new Integer32EqualityComparer());
+        
         public bool Equals(int x, int y)
         {
             return x == y;

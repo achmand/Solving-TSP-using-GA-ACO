@@ -47,7 +47,7 @@ namespace Domain.Common
 
         public TspInstance()
         {
-            Cities = new Dictionary<int, Vector2>(Dimensions, new Integer32EqualityComparer());
+            Cities = new Dictionary<int, Vector2>(Dimensions, Integer32EqualityComparer.Default);
         }
 
         #endregion constructor/s 
