@@ -1,6 +1,6 @@
 ﻿namespace Domain.GeneticAlgorithm
 {
-    // testing commit 
+    // testing commit //
     public class TspGeneticAlgorithm
     {
         #region properties 
