@@ -37,6 +37,34 @@ namespace TSP
 
             //Console.WriteLine(tspCities.CitiesToString());
             //Console.WriteLine(Helpers.Map(25f, 0f, 50f, 0f, 1f));
+
+            // testing select one 
+            //var fitness = new double[]
+            //{
+            //    0.1, // 0
+            //    0.2, // 1
+            //    0.1, // 2
+            //    0.2, // 3
+            //    0.4  // 4
+            //};
+           
+            //var rand = new Random();
+            //foreach (var t in fitness)
+            //{
+            //    var index = 0;
+            //    var r = rand.NextDouble();
+            //    while (r > 0)
+            //    {
+            //        r -= fitness[index];
+            //        index += 1;
+            //    }
+
+            //    index -= 1;
+
+            //    Console.WriteLine(index);
+            //}
+
+
             Console.ReadLine();
         }
     }

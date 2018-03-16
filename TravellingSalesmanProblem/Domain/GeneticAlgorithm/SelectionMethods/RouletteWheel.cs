@@ -27,7 +27,7 @@ namespace Domain.GeneticAlgorithm.SelectionMethods
     {
         #region properties & fields 
 
-        private Dictionary<int, double> _matingPool;
+        private double[] _normalizedFitness;
 
         private bool isFitnessNormalized;
 
@@ -53,9 +53,9 @@ namespace Domain.GeneticAlgorithm.SelectionMethods
         /// <returns>The candidate selected by the selection method which will be used for breeding/crossover process.</returns>
         public Chromosome<T> PopulationSelection(Population<T> population)
         {
-            if (_matingPool == null)
+            if (_normalizedFitness == null)
             {
-                _matingPool = new Dictionary<int, double>(population.PopulationSize, Integer32EqualityComparer.Default);
+                _normalizedFitness = new double[population.PopulationSize];
                 _random = new Random();
             }
 
@@ -64,16 +64,16 @@ namespace Domain.GeneticAlgorithm.SelectionMethods
                 NormalizeFitness(population);
             }
 
-            // TODO -> message Daniel Shiffman about this bug 
-            //s
-            //https://github.com/shiffman/NOC-S17-2-Intelligence-Learning/blob/master/week2-evolution/02_TSP_GA/sketch.js
-            //var r = _random.NextDouble();
-            //while (r > 0)
-            //{
-            //    r 
-            //}
+            var index = 0;
+            var r = _random.NextDouble();
+            while (r > 0)
+            {
+                r -= _normalizedFitness[index];
+                index ++;
+            }
 
-            return null;
+            index --;
+            return population.Chromosomes[index];
         }
 
         #endregion public methods
@@ -87,7 +87,7 @@ namespace Domain.GeneticAlgorithm.SelectionMethods
 
             for (var i = 0; i < population.PopulationSize; i++)
             {
-                _matingPool[i] = chromosomes[i].Fitness / highestFit;
+                _normalizedFitness[i] = chromosomes[i].Fitness / highestFit;
             }
 
             isFitnessNormalized = true;
