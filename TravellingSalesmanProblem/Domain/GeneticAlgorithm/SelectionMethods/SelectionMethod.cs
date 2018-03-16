@@ -13,38 +13,46 @@
 
 namespace Domain.GeneticAlgorithm.SelectionMethods
 {
-    /// <summary>
-    /// Different types of selection methods used in a genetic algorithm GA.
-    /// </summary>
-    public enum SelectionMethodType
-    {
-        /// <summary>
-        /// No selection method at all. 
-        /// </summary>
-        None,
-        /// <summary>
-        /// Roulette Wheel Selection (RWS) a.k.a 'Fitness Proportionate Selection'.
-        /// </summary>
-        Rws,
-    }
+   
+
+    // TODO -> Not Sure This is needed !!! if common methods are here this will be needed if not no need 
 
     /// <summary>
-    /// Method signature/s for the selection methods used in GA. Selection is the stage of a GA in which individual genomes/chromosomes are chosen from a population for later breeding.
+    /// A generic selection method base class from which all the selection methods inherit from. 
     /// </summary>
-    /// <typeparam name="T">The type of the <see cref="Chromosome{T}"/> used in the selection process.</typeparam>
-    public interface ISelectionMethod<T>
+    /// <typeparam name="T"></typeparam>
+    public abstract class SelectionMethod<T> : ISelectionMethod<T>
     {
-        #region method signatures 
+        #region properties & fields 
 
-        SelectionMethodType MethodType { get; }
+        /// <summary>
+        /// Selection method type which is set by the child class.
+        /// </summary>
+        protected abstract SelectionMethodType SelectionMethodType { get;  }
+
+        /// <summary>
+        /// Gets the selection method type set by the child class.
+        /// </summary>
+        public SelectionMethodType MethodType => SelectionMethodType;
+
+        #endregion properties & fields 
+
+        #region method/s
+
+        #region public method/s
 
         /// <summary>
         /// Selects the next candidate from the population to be used for the breeding/crossover process. 
         /// </summary>
         /// <param name="population">The population from where the candidate (parent) will be selected.</param>
         /// <returns>The candidate selected by the selection method which will be used for breeding/crossover process.</returns>
-        Chromosome<T> PopulationSelection(Population<T> population);
+        public Chromosome<T> PopulationSelection(Population<T> population)
+        {
+            return null;
+        }
 
-        #endregion method signatures 
+        #endregion public method/s
+
+        #endregion method/s
     }
 }

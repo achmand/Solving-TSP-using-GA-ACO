@@ -10,7 +10,7 @@
 
     public sealed class Chromosome<T>
     {
-        public float Fitness { private set; get; }
+        public double Fitness { private set; get; }
 
         public T Genome { private set; get; }
 
