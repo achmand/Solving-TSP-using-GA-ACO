@@ -40,9 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Helpers.cs" />
     <Compile Include="Common\TspInstance.cs" />
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Integer32EqualityComparer.cs" />
+    <Compile Include="GeneticAlgorithm\Chromosome.cs" />
+    <Compile Include="GeneticAlgorithm\Population.cs" />
+    <Compile Include="GeneticAlgorithm\SelectionMethods\ISelectionMethod.cs" />
+    <Compile Include="GeneticAlgorithm\SelectionMethods\RouletteWheel.cs" />
     <Compile Include="GeneticAlgorithm\TspGeneticAlgorithm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

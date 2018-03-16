@@ -33,10 +33,15 @@ namespace Domain.Common
         #region properties 
 
         public string TourName { get; set; }
+
         public string Type { get; set; }
+
         public string Comment { get; set; }
+
         public int Dimensions { get; set; }
+
         public string EdgeWeightType { get; set; }
+
         public Dictionary<int, Vector2> Cities { get; set; }
 
         private StringBuilder _stringBuilder;
