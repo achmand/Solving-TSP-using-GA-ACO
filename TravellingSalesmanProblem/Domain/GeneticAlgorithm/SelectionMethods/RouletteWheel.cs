@@ -65,6 +65,7 @@ namespace Domain.GeneticAlgorithm.SelectionMethods
             }
 
             // TODO -> message Daniel Shiffman about this bug 
+            //https://github.com/shiffman/NOC-S17-2-Intelligence-Learning/blob/master/week2-evolution/02_TSP_GA/sketch.js
             //var r = _random.NextDouble();
             //while (r > 0)
             //{
