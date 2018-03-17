@@ -1,14 +1,14 @@
 ﻿using System;
 
+/* 
+* <author>Dylan Vassallo</author>
+* <date>16/03/2018</date>
+*/
+
 namespace Domain.GeneticAlgorithm
 {
-    /* 
-    * <author>Dylan Vassallo</author>
-    * <date>16/03/2018</date>
-    */
-
     /// <summary>
-    /// A generic implementation for a population used in GA, which holds a subset of solution for the current generation. 
+    /// Generic implementation for a population used in GA, which holds a subset of solution for the current generation. 
     /// </summary>
     /// <typeparam name="T">The type of <see cref="Chromosome{T}"/> used in the population.</typeparam>
     public sealed class Population<T>

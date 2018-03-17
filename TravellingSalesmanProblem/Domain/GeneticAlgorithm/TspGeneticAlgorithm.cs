@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.GeneticAlgorithm.CrossoverMethods;
 using Domain.GeneticAlgorithm.SelectionMethods;
 
 namespace Domain.GeneticAlgorithm
@@ -8,6 +9,7 @@ namespace Domain.GeneticAlgorithm
     // TODO -> Check access modifiers
     // TODO -> Implement Different Selection methods 
     // TODO -> Charbonneau's genetic algorithm
+    // TODO -> Add pooling for chromsomes 
 
     public class TspGeneticAlgorithm<T>
     {
@@ -18,6 +20,8 @@ namespace Domain.GeneticAlgorithm
         private Population<T> Population { get; }
 
         private ISelectionMethod<T> _selectionMethod;
+
+        private IChrossoverMethod<T> _crossoverMethod; 
 
         /// <summary>
         /// The selection method used in the GA. 
@@ -66,6 +70,8 @@ namespace Domain.GeneticAlgorithm
             return _selectionMethod.PopulationSelection(Population);
         }
 
+        // TODO -> Move this to base class or something !!!! 
+
         /// <summary>
         /// Sets the selection method according to the selection method type selected.
         /// </summary>
@@ -84,6 +90,8 @@ namespace Domain.GeneticAlgorithm
                     break;
             }
         }
+
+        // TODO -> Implement set crossover method shit 
 
         #endregion private methods 
 

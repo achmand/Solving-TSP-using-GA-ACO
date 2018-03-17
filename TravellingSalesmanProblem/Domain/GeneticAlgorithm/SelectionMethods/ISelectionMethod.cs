@@ -21,7 +21,7 @@ namespace Domain.GeneticAlgorithm.SelectionMethods
         /// <summary>
         /// No selection method at all. 
         /// </summary>
-        None,
+        None = 0,
         /// <summary>
         /// Roulette Wheel Selection (RWS) a.k.a 'Fitness Proportionate Selection'.
         /// </summary>
@@ -29,13 +29,16 @@ namespace Domain.GeneticAlgorithm.SelectionMethods
     }
 
     /// <summary>
-    /// Method signature/s for the selection methods used in GA. Selection is the stage of a GA in which individual genomes/chromosomes are chosen from a population for later breeding.
+    /// Method signature/s for the selection methods used in GA. Selection is the stage in a GA were an individual genomes/chromosomes are chosen from a population for later breeding.
     /// </summary>
     /// <typeparam name="T">The type of the <see cref="Chromosome{T}"/> used in the selection process.</typeparam>
     public interface ISelectionMethod<T>
     {
         #region method signatures 
 
+        /// <summary>
+        /// The selection method type used in the concrete implementation. 
+        /// </summary>
         SelectionMethodType MethodType { get; }
 
         /// <summary>

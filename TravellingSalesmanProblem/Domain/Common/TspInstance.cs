@@ -28,6 +28,7 @@ namespace Domain.Common
         Aco
     }
 
+    //http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/tsp95.pdf
     public sealed class TspInstance
     {
         #region properties 

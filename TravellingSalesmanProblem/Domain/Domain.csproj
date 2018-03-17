@@ -45,6 +45,9 @@
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Integer32EqualityComparer.cs" />
     <Compile Include="GeneticAlgorithm\Chromosome.cs" />
+    <Compile Include="GeneticAlgorithm\CrossoverMethods\CrossoverMethod.cs" />
+    <Compile Include="GeneticAlgorithm\CrossoverMethods\IChrossoverMethod.cs" />
+    <Compile Include="GeneticAlgorithm\CrossoverMethods\PartiallyMapped.cs" />
     <Compile Include="GeneticAlgorithm\GeneticAlgorithmOptions.cs" />
     <Compile Include="GeneticAlgorithm\Population.cs" />
     <Compile Include="GeneticAlgorithm\SelectionMethods\ISelectionMethod.cs" />
@@ -55,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AntColonyOptimization\" />
+    <Folder Include="Common\Pooling\" />
+    <Folder Include="GeneticAlgorithm\MutationMethods\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

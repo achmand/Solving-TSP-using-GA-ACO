@@ -1,4 +1,5 @@
-﻿using Domain.GeneticAlgorithm.SelectionMethods;
+﻿using Domain.GeneticAlgorithm.CrossoverMethods;
+using Domain.GeneticAlgorithm.SelectionMethods;
 
 /* 
 * <author>Dylan Vassallo</author>
@@ -15,10 +16,14 @@ namespace Domain.GeneticAlgorithm
     {
         #region properties & fields 
 
+        public EncodingType EncodingType { get; set; }
+
         /// <summary>
         /// The selection method used in the GA. 
         /// </summary>
         public SelectionMethodType SelectionMethod { get; set; }
+
+        public CrossoverOperator CrossoverOperator { get; set; }
 
         /// <summary>
         /// The population size used by the GA's population.
@@ -29,7 +34,7 @@ namespace Domain.GeneticAlgorithm
         /// The mutation rate used in the GA.
         /// </summary>
         private float MutationRate { get; }
-         
+
         private float Elitism { get; }
 
         #endregion properties & fields
@@ -38,15 +43,18 @@ namespace Domain.GeneticAlgorithm
 
         public GeneticAlgorithmOptions()
         {
+            EncodingType = EncodingType.Permutation;
             SelectionMethod = SelectionMethodType.Rws;
+            CrossoverOperator = CrossoverOperator.Pmx;
             PopulationSize = 20;
             MutationRate = 0.3f;
             Elitism = 0;
         }
 
-        public GeneticAlgorithmOptions(SelectionMethodType selectionMethod, int populationSize, float mutationRate, float elitism)
+        public GeneticAlgorithmOptions(SelectionMethodType selectionMethod, CrossoverOperator crossoverOperator, int populationSize, float mutationRate, float elitism)
         {
             SelectionMethod = selectionMethod;
+            CrossoverOperator = crossoverOperator;
             PopulationSize = populationSize;
             MutationRate = mutationRate;
             Elitism = elitism > 1f ? 1f : elitism;
@@ -57,8 +65,7 @@ namespace Domain.GeneticAlgorithm
         #region method/s 
 
         #region private method/s 
-
-
+        
         #endregion private method/s
 
         #endregion method/s 

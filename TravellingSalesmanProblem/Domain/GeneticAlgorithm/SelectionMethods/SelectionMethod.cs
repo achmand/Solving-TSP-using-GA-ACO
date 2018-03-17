@@ -13,8 +13,6 @@
 
 namespace Domain.GeneticAlgorithm.SelectionMethods
 {
-   
-
     // TODO -> Not Sure This is needed !!! if common methods are here this will be needed if not no need 
 
     /// <summary>
