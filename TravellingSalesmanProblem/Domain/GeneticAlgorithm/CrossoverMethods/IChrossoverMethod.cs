@@ -28,7 +28,11 @@ namespace Domain.GeneticAlgorithm.CrossoverMethods
         /// <summary>
         /// Partially-mapped crossover operator (PMX).
         /// </summary>
-        Pmx = 1
+        Pmx = 1,
+        /// <summary>
+        /// Order 1 crossover opertator. 
+        /// </summary>
+        OrderOne = 2,
     }
 
     /// <summary>
@@ -44,12 +48,7 @@ namespace Domain.GeneticAlgorithm.CrossoverMethods
         /// </summary>
         CrossoverOperator CrossoverOperator { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="selectionMethod"></param>
-        /// <returns></returns>
-        Chromosome<T> Crossover(ISelectionMethod<T> selectionMethod);
+        Chromosome<T> Crossover(Population<T> population, ISelectionMethod<T> selectionMethod);
 
         #endregion method signatures
     }

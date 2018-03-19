@@ -14,6 +14,9 @@
     http://www.garph.co.uk/ijarie/mar2013/1.pdf
 */
 
+using System;
+using System.Collections.Generic;
+
 namespace Domain.GeneticAlgorithm
 {
     // TODO-> Do I need an interface IFitness ??
@@ -21,19 +24,60 @@ namespace Domain.GeneticAlgorithm
 
     public enum EncodingType
     {
-        Permutation, 
-        Binary 
+        Permutation,
+        Binary
     }
 
     public sealed class Chromosome<T>
     {
         public double Fitness { private set; get; }
 
-        public T[] Genome { private set; get; }
+        private HashSet<T> _genomeSet;
 
+        public T[] Genome { get; }
+
+        public int GenomeLength => Genome.Length;
+
+        // TODO -> Add equality comparer ??
         public Chromosome(T[] genome)
         {
             Genome = genome;
+            _genomeSet = new HashSet<T>(genome);
         }
+
+        public Chromosome(int genomeLength)
+        {
+            Genome = new T[genomeLength];
+            _genomeSet = new HashSet<T>();
+        }
+
+        public void AddGene(T gene, int index)
+        {
+            Genome[index] = gene;
+            _genomeSet.Add(gene);
+        }
+
+        public void CopyGenes(Chromosome<T> source, int sourceStart, int sourceEnd)
+        {
+            for (int i = sourceStart; i <= sourceEnd; i++)
+            {
+                var sourceGene = source.Genome[i];
+                Genome[i] = sourceGene;
+
+                _genomeSet.Add(sourceGene);
+            }
+        }
+
+        public bool ContainsGene(T gene)
+        {
+            return _genomeSet.Contains(gene);
+        }
+
+        public override string ToString()
+        {
+            var genomeString = string.Join(",", Genome);
+            return $"Genome: {genomeString}";
+        }
+
     }
 }

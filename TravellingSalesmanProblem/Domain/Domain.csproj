@@ -41,12 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Helpers.cs" />
+    <Compile Include="Common\RandomProvider.cs" />
     <Compile Include="Common\TspInstance.cs" />
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Integer32EqualityComparer.cs" />
     <Compile Include="GeneticAlgorithm\Chromosome.cs" />
     <Compile Include="GeneticAlgorithm\CrossoverMethods\CrossoverMethod.cs" />
     <Compile Include="GeneticAlgorithm\CrossoverMethods\IChrossoverMethod.cs" />
+    <Compile Include="GeneticAlgorithm\CrossoverMethods\OrderOne.cs" />
     <Compile Include="GeneticAlgorithm\CrossoverMethods\PartiallyMapped.cs" />
     <Compile Include="GeneticAlgorithm\GeneticAlgorithmOptions.cs" />
     <Compile Include="GeneticAlgorithm\Population.cs" />

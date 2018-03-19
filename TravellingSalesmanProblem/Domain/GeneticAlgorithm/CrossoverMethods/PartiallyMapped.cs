@@ -1,4 +1,5 @@
-﻿using Domain.GeneticAlgorithm.SelectionMethods;
+﻿using Domain.Common;
+using Domain.GeneticAlgorithm.SelectionMethods;
 
 /* 
 * <author>Dylan Vassallo</author>
@@ -32,8 +33,17 @@ namespace Domain.GeneticAlgorithm.CrossoverMethods
 
         // TODO -> This specific crossover returns two children instead of one 
 
-        public Chromosome<T> Crossover(ISelectionMethod<T> selectionMethod)
+
+        public Chromosome<T> Crossover(Population<T> population, ISelectionMethod<T> selectionMethod)
         {
+            var father = selectionMethod.PopulationSelection(population);
+            var mother = selectionMethod.PopulationSelection(population);
+
+            // TODO -> Check if not equal, should this be done by the selection method itself ??? (Same repeated genes)
+
+            int startCutoffPoint;
+            int endCutoffPoint;
+            RandomProvider.Default.RandomSubArrayIndexes(0, population.Chromosomes.Length, out startCutoffPoint, out endCutoffPoint);
 
             return null;
         }

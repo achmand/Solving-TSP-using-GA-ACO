@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Domain.Common;
+using Domain.GeneticAlgorithm;
 
 namespace TSP
 {
@@ -47,7 +48,7 @@ namespace TSP
             //    0.2, // 3
             //    0.4  // 4
             //};
-           
+
             //var rand = new Random();
             //foreach (var t in fitness)
             //{
@@ -64,8 +65,57 @@ namespace TSP
             //    Console.WriteLine(index);
             //}
 
+            var x = new[] { 1, 2, 3, 4, 5, 6, 7 };
+            for (int i = 0; i < 200; i++)
+            {
+                int s1;
+                int s2;
+
+                RandomProvider.Default.RandomSubArrayIndexes(0, x.Length - 1, out s1, out s2);
+                Console.WriteLine(s1 + " " + s2);
+            }
+
+            //var genome1 = new[] { 8, 4, 7, 3, 6, 2, 5, 1, 9, 0 };
+            //var father = new Chromosome<int>(genome1);
+
+            //var genome2 = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            //var mother = new Chromosome<int>(genome2);
+
+            //var offspring = test(father, mother);
+            //Console.WriteLine(offspring.ToString());
 
             Console.ReadLine();
+        }
+
+        private static Chromosome<int> test(Chromosome<int> father, Chromosome<int> mother)
+        {
+            // TODO -> Check if not equal, should this be done by the selection method itself ??? (Same repeated genes)
+
+            int startCutoffPoint = 7;
+            int endCutoffPoint = 9;
+
+            var offspring = new Chromosome<int>(father.GenomeLength);
+            offspring.CopyGenes(father, startCutoffPoint, endCutoffPoint);
+
+            var difference = (endCutoffPoint - startCutoffPoint) + 1;
+
+            var counter = 0;
+            for (var i = 0; i < mother.GenomeLength; i++)
+            {
+                if (counter == startCutoffPoint)
+                {
+                    counter += difference;
+                }
+
+                var motherGene = mother.Genome[i];
+                if (!offspring.ContainsGene(motherGene))
+                {
+                    offspring.AddGene(motherGene, counter);
+                    counter++;
+                }
+            }
+
+            return offspring;
         }
     }
 }
