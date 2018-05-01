@@ -48,6 +48,10 @@
     <Compile Include="GeneticAlgorithm\GeneticAlgorithm.cs" />
     <Compile Include="GeneticAlgorithm\Opertators\Crossover\CrossoverOperator.cs" />
     <Compile Include="GeneticAlgorithm\Opertators\Crossover\CrossoverType.cs" />
+    <Compile Include="GeneticAlgorithm\Opertators\Crossover\OrderOne.cs" />
+    <Compile Include="GeneticAlgorithm\Opertators\Mutation\MutationOperator.cs" />
+    <Compile Include="GeneticAlgorithm\Opertators\Mutation\MutationType.cs" />
+    <Compile Include="GeneticAlgorithm\Opertators\Mutation\SingleSwapMutation.cs" />
     <Compile Include="GeneticAlgorithm\Opertators\Selection\RouletteWheel.cs" />
     <Compile Include="GeneticAlgorithm\Opertators\Selection\SelectionOperator.cs" />
     <Compile Include="GeneticAlgorithm\Opertators\Selection\SelectionType.cs" />

@@ -19,10 +19,14 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Selection
     /// </summary>
     public sealed class RouletteWheel<T> : SelectionOperator<T>
     {
+        #region properties 
+
         /// <summary>
-        /// The method type for this specific selection implementation (RWS).
+        /// The selection operator type for this specific selection implementation (RWS).
         /// </summary>
         public override SelectionType SelectionType => SelectionType.Rws;
+
+        #endregion properties
 
         #region constructor/s 
 
@@ -72,6 +76,10 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Selection
             }
 
             FitnessNormalized = true;
+        }
+
+        protected override void _SetNextGeneration()
+        {
         }
 
         #endregion private methods

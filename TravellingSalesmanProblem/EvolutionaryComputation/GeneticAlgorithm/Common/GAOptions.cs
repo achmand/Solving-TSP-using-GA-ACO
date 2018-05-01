@@ -1,4 +1,5 @@
 ﻿using EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover;
+using EvolutionaryComputation.GeneticAlgorithm.Opertators.Mutation;
 using EvolutionaryComputation.GeneticAlgorithm.Opertators.Selection;
 
 namespace EvolutionaryComputation.GeneticAlgorithm.Common
@@ -31,6 +32,11 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
         public CrossoverType CrossoverType { get; set; }
 
         /// <summary>
+        /// The mutation type used in the GA's mutation stage. 
+        /// </summary>
+        public MutationType MutationType { get; set; }
+
+        /// <summary>
         /// The mutation rate used in the GA.
         /// </summary>
         public double MutationRate { get; }
@@ -58,6 +64,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
             EncodingType = EncodingType.Permutation;
             SelectionType = SelectionType.Rws;
             CrossoverType = CrossoverType.Pmx;
+            MutationType = MutationType.SingleSwap;
             MutationRate = 0.3f;
             Elitism = 0;
 
@@ -71,14 +78,17 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
         /// <param name="encodingType">The encoding type used in the chromosome.</param>
         /// <param name="selectionType">The selection type.</param>
         /// <param name="crossoverType">The crossover type.</param>
+        /// <param name="mutationType">The mutation type.</param>
         /// <param name="mutationRate">The mutation rate.</param>
         /// <param name="elitisim">The elistism rate.</param>
-        public GAOptions(int populationSize, EncodingType encodingType, SelectionType selectionType, CrossoverType crossoverType, double mutationRate, int elitisim, IterationThreshold iterationThreshold)
+        /// <param name="iterationThreshold">The iteration threshold which stops the GA.</param>
+        public GAOptions(int populationSize, EncodingType encodingType, SelectionType selectionType, CrossoverType crossoverType, MutationType mutationType, double mutationRate, int elitisim, IterationThreshold iterationThreshold)
         {
             PopulationSize = populationSize;
             EncodingType = encodingType;
             SelectionType = selectionType;
             CrossoverType = crossoverType;
+            MutationType = mutationType;
             MutationRate = mutationRate;
             Elitism = elitisim;
 

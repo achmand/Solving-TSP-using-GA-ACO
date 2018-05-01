@@ -1,6 +1,7 @@
 ﻿using System;
 using EvolutionaryComputation.GeneticAlgorithm.Common;
 using EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover;
+using EvolutionaryComputation.GeneticAlgorithm.Opertators.Mutation;
 using EvolutionaryComputation.GeneticAlgorithm.Opertators.Selection;
 
 namespace EvolutionaryComputation.GeneticAlgorithm
@@ -30,6 +31,16 @@ namespace EvolutionaryComputation.GeneticAlgorithm
         /// The <see cref="SelectionOperator{T}"/> used in the GA's selection stage. 
         /// </summary>
         protected SelectionOperator<T> SelectionOperator;
+
+        /// <summary>
+        /// The <see cref="CrossoverOperator{T}"/> used in the GA's crossover stage. 
+        /// </summary>
+        protected CrossoverOperator<T> CrossoverOperator;
+
+        /// <summary>
+        /// The <see cref="MutationOperator{T}"/> used in the GA's mutation stage. 
+        /// </summary>
+        protected MutationOperator<T> MutationOperator;
 
         #endregion properties 
 
@@ -86,7 +97,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm
             }
 
             var populationSize = Population.PopulationSize;
-            switch (selectionType)
+            switch (selectionType) // setting the selection operator to the specified type
             {
                 case SelectionType.Rws:
                     SelectionOperator = new RouletteWheel<T>(populationSize, Random);
@@ -99,11 +110,24 @@ namespace EvolutionaryComputation.GeneticAlgorithm
                 throw new Exception("Crossover method cannot be none when setting the method.");
             }
 
-            switch (crossoverType)
+            switch (crossoverType) // setting the crossover operator to the specified type 
             {
-                //case SelectionType.Rws:
-                //    SelectionOperator = new RouletteWheel<T>();
-                //    break;
+                case CrossoverType.OrderOne:
+                    CrossoverOperator = new OrderOne<T>();
+                    break;
+            }
+
+            var mutationType = GaOptions.MutationType;
+            if (mutationType == MutationType.None)
+            {
+                throw new Exception("Mutation method cannot be none when setting the method.");
+            }
+
+            switch (mutationType) // setting the mutation operator to the specified type 
+            {
+                case MutationType.SingleSwap:
+                    MutationOperator = new SingleSwapMutation<T>(Random);
+                    break;
             }
         }
 

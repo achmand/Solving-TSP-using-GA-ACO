@@ -92,15 +92,27 @@ namespace EvolutionaryComputation.TspProblem
             for (int i = 0; i < populationSize; i++)
             {
                 // TODO -> Should I make sure that both parents are different ??
+
+                // selection operation
                 var fatherChromosome = SelectionOperator.PopulationSelection(Population);
                 var motherChromosome = SelectionOperator.PopulationSelection(Population);
 
+                // crossover operation
+                var childChromosome = CrossoverOperator.Crossover(fatherChromosome, motherChromosome);
 
+                // mutate operation 
+                MutationOperator.Mutate(childChromosome);
+
+                // add child chromsome to the next generation population
+                Population.AddChromosome(i, childChromosome, true); 
             }
+
+            // prepare for next evolution
+            Population.SetNextGeneration();
+            SelectionOperator.SetNextGeneration();
 
             Generation++;
         }
-
 
         // TODO -> This must be used as a fitness calculator
         private void CalculateFitness(Chromosome<int> chromosome)
