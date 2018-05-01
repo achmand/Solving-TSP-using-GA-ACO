@@ -51,9 +51,9 @@
     <None Include="berlin52.tsp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{fd92171d-3ae9-4628-a365-3111d047bc25}</Project>
-      <Name>Domain</Name>
+    <ProjectReference Include="..\EvolutionaryComputation\EvolutionaryComputation.csproj">
+      <Project>{8588fe57-ffc2-444a-8349-e2aa088a2427}</Project>
+      <Name>EvolutionaryComputation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

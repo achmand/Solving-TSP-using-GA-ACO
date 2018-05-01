@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain.Common
+namespace EvolutionaryComputation.Utilities
 {
     /// <summary>
     /// Represents a vector with two single-precision floating-point values.
@@ -12,12 +12,12 @@ namespace Domain.Common
         /// <summary>
         /// X coordinate.
         /// </summary>
-        public float X;
+        public double X;
 
         /// <summary>
         /// Y coordinate. 
         /// </summary>
-        public float Y;
+        public double Y;
 
         #endregion public fields 
 
@@ -27,13 +27,13 @@ namespace Domain.Common
         /// (readonly) Calculate the squared magnitude of two vectors (length). 
         /// To compare distances use this instead of <see cref="Magnitude"/> as it is faster to compute.
         /// </summary>
-        public float SqrMagnitude => X * X + Y * Y;
+        public double SqrMagnitude => X * X + Y * Y;
 
         /// <summary>
         /// (readonly) Calculate the magnitude of two vectors (length). 
         /// To compare distances use of <see cref="SqrMagnitude"/> since it is faster to compute.
         /// </summary>
-        public float Magnitude => (float)Math.Sqrt(X * X + Y * Y);
+        public double Magnitude => Math.Sqrt(X * X + Y * Y);
 
         #endregion properties 
 
@@ -44,7 +44,7 @@ namespace Domain.Common
         /// </summary>
         /// <param name="x">X coordinate to set.</param>
         /// <param name="y">Y coordinate to set.</param>
-        public Vector2(float x, float y)
+        public Vector2(double x, double y)
         {
             X = x;
             Y = y;
@@ -61,7 +61,7 @@ namespace Domain.Common
         /// </summary>
         /// <param name="target">The target to calculate the squared length to.</param>
         /// <returns>Returns the squared length of this vector in relation to the target.</returns>
-        public float CalcSqrMagnitude(Vector2 target)
+        public double CalcSqrMagnitude(Vector2 target)
         {
             var xSub = target.X - X;
             var ySub = target.Y - Y;
@@ -76,12 +76,12 @@ namespace Domain.Common
         /// </summary>
         /// <param name="target">The target to calculate the length to.</param>>
         /// <returns>Returns the length of this vector in relation to the target.</returns>
-        public float CalcMagnitude(Vector2 target)
+        public double CalcMagnitude(Vector2 target)
         {
             var xSub = target.X - X;
             var ySub = target.Y - Y;
 
-            return (float)Math.Sqrt(xSub * xSub + ySub * ySub);
+            return Math.Sqrt(xSub * xSub + ySub * ySub);
         }
 
         #endregion public methods 
