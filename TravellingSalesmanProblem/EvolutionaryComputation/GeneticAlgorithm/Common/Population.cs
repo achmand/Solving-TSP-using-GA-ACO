@@ -91,12 +91,15 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
 
         public void SetNextGeneration()
         {
-            HighestFitness = 0;
-            HighestFitnessIndex = 0;
+            // TODO -> What if we are using elitisim ?
+
+            HighestFitness = NextGenHighestFitness;
+            HighestFitnessIndex = NextGenHighestFitnessIndex;
+
             NextGenHighestFitness = 0;
             NextGenHighestFitnessIndex = 0;
 
-            Chromosomes = NextGenChromosomes;
+            Chromosomes = NextGenChromosomes; // set the current population to the next generation population
         }
 
         #endregion public methods 

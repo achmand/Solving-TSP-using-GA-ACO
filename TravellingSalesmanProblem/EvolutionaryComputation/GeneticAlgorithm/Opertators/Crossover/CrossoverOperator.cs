@@ -1,4 +1,5 @@
-﻿using EvolutionaryComputation.GeneticAlgorithm.Common;
+﻿using System;
+using EvolutionaryComputation.GeneticAlgorithm.Common;
 
 namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
 {
@@ -15,7 +16,18 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
         /// </summary>
         public abstract CrossoverType CrossoverType { get; }
 
+        protected Random Random;
+
         #endregion properties
+
+        #region constructor/s 
+
+        protected CrossoverOperator(Random random)
+        {
+            Random = random;
+        }
+
+        #endregion constructor/s 
 
         #region public methods 
 

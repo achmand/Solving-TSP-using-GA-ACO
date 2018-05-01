@@ -25,14 +25,5 @@
         }
 
         #endregion constructor/s 
-
-        #region public methods 
-
-        public void AddGene(T gene, int index)
-        {
-            Genome[index] = gene;
-        }
-
-        #endregion
     }
 }

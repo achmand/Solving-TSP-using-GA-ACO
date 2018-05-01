@@ -35,10 +35,15 @@ namespace EvolutionaryComputation.TspProblem
         public void Evolve()
         {
             CreateInitialPopulation();
-            while (Generation < 100)
+            while (Generation < 10000)
             {
                 CreateNextGeneration();
             }
+
+            var bestIndex = Population.HighestFitnessIndex;
+            var bestChromomsome = Population.Chromosomes[bestIndex];
+            Console.WriteLine(string.Join(",", bestChromomsome.Genome));
+            Console.WriteLine("Finished");
         }
 
         #endregion public methods 
@@ -88,6 +93,8 @@ namespace EvolutionaryComputation.TspProblem
 
         private void CreateNextGeneration()
         {
+            // TODO -> Elitism 
+
             var populationSize = Population.PopulationSize;
             for (int i = 0; i < populationSize; i++)
             {
@@ -98,13 +105,13 @@ namespace EvolutionaryComputation.TspProblem
                 var motherChromosome = SelectionOperator.PopulationSelection(Population);
 
                 // crossover operation
-                var childChromosome = CrossoverOperator.Crossover(fatherChromosome, motherChromosome);
+                var childChromosome = CrossoverOperator.Crossover(fatherChromosome, motherChromosome); // TODO -> some crossovers can return more than one child 
 
                 // mutate operation 
                 MutationOperator.Mutate(childChromosome);
 
                 // add child chromsome to the next generation population
-                Population.AddChromosome(i, childChromosome, true); 
+                Population.AddChromosome(i, childChromosome, true);
             }
 
             // prepare for next evolution

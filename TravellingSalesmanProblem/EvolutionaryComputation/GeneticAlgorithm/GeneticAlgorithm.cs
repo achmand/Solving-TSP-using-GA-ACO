@@ -42,6 +42,8 @@ namespace EvolutionaryComputation.GeneticAlgorithm
         /// </summary>
         protected MutationOperator<T> MutationOperator;
 
+        protected bool UsingElitism => GaOptions.Elitism > 0;
+
         #endregion properties 
 
         #region constructor/s
@@ -80,9 +82,9 @@ namespace EvolutionaryComputation.GeneticAlgorithm
         private void Initialize()
         {
             Population = new Population<T>(GaOptions.PopulationSize);
+            Random = new Random();
             Generation = 0;
             SetOperators();
-            Random = new Random();
         }
 
         /// <summary>
@@ -113,7 +115,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm
             switch (crossoverType) // setting the crossover operator to the specified type 
             {
                 case CrossoverType.OrderOne:
-                    CrossoverOperator = new OrderOne<T>();
+                    CrossoverOperator = new OrderOne<T>(Random);
                     break;
             }
 

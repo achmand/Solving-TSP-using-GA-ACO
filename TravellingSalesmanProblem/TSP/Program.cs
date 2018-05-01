@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+  https://www.springer.com/gp/book/9783642072857 (Find slides)
+*/
+
+using System;
 using System.IO;
 using EvolutionaryComputation.GeneticAlgorithm.Common;
 using EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover;
@@ -31,7 +35,7 @@ namespace TSP
                     test = false;
                 }
 
-                if (test)   
+                if (test)
                 {
                     var details = line.Split(null);
                     tspCities.CitiesSet.Add(Convert.ToInt32(details[0]), new Vector2(float.Parse(details[1]), float.Parse(details[2])));
@@ -52,20 +56,19 @@ namespace TSP
 
             //Console.WriteLine(tspCities.CitiesToString());
 
-            var gaOptions = new GAOptions(100, EncodingType.Permutation, SelectionType.Rws, CrossoverType.OrderOne, MutationType.SingleSwap, 0.3, 0, IterationThreshold.SpecifiedGenerations);
+            var gaOptions = new GAOptions(100, EncodingType.Permutation, SelectionType.Rws, CrossoverType.OrderOne, MutationType.SingleSwap, 0.3, 1, IterationThreshold.SpecifiedGenerations);
             var tspGeneticAlgorithm = new TspGeneticAlgorithm(gaOptions, tspCities);
             tspGeneticAlgorithm.Evolve();
-           // var chromosome = new Chromosome<int>(new []{49,32,45,19,41,8,9,10,43,33,51,11,52,14,13,47,26,27,28,12,25,4,6,15,5,24,48,38,37,40,39,36,35,34,44,46,16,29,50,20,23,30,2,7,42,21,17,3,18,31,22 });
-            
-            //var chromsome= new Chromosome<int>(new[] { 1,4,5});
-            //var single = new SingleSwapMutation<int>(new Random());
-            //for (int i = 0; i < 1000; i++)
-            //{
-            //    single.Mutate(chromsome);
-            //    Console.WriteLine(string.Join(",", chromsome.Genome));
-            //}
+            // var chromosome = new Chromosome<int>(new []{49,32,45,19,41,8,9,10,43,33,51,11,52,14,13,47,26,27,28,12,25,4,6,15,5,24,48,38,37,40,39,36,35,34,44,46,16,29,50,20,23,30,2,7,42,21,17,3,18,31,22 });
 
+            //var chromsome = new Chromosome<int>(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+            //var chromsomeB = new Chromosome<int>(new[] { 9, 3, 7, 8, 2, 6, 5, 1, 4 });
+            //var single = new OrderOne<int>(new Random());
+
+            //var child = single.Crossover(chromsome, chromsomeB);
+            //Console.WriteLine(string.Join(",", child.Genome));
             Console.ReadLine();
+
 
             //Console.WriteLine(tspCities.CitiesToString());
             //Console.WriteLine(Helpers.Map(25f, 0f, 50f, 0f, 1f));
