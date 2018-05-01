@@ -65,15 +65,15 @@ namespace TSP
             //    Console.WriteLine(index);
             //}
 
-            var x = new[] { 1, 2, 3, 4, 5, 6, 7 };
-            for (int i = 0; i < 200; i++)
-            {
-                int s1;
-                int s2;
+            //var x = new[] { 1, 2, 3, 4, 5, 6, 7 };
+            //for (int i = 0; i < 200; i++)
+            //{
+            //    int s1;
+            //    int s2;
 
-                RandomProvider.Default.RandomSubArrayIndexes(0, x.Length - 1, out s1, out s2);
-                Console.WriteLine(s1 + " " + s2);
-            }
+            //    RandomProvider.Default.RandomSubArrayIndexes(0, x.Length - 1, out s1, out s2);
+            //    Console.WriteLine(s1 + " " + s2);
+            //}
 
             //var genome1 = new[] { 8, 4, 7, 3, 6, 2, 5, 1, 9, 0 };
             //var father = new Chromosome<int>(genome1);
@@ -83,6 +83,8 @@ namespace TSP
 
             //var offspring = test(father, mother);
             //Console.WriteLine(offspring.ToString());
+
+
 
             Console.ReadLine();
         }

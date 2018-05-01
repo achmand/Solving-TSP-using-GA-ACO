@@ -1,11 +1,6 @@
 ﻿using Domain.GeneticAlgorithm.CrossoverMethods;
 using Domain.GeneticAlgorithm.SelectionMethods;
 
-/* 
-* <author>Dylan Vassallo</author>
-* <date>12/03/2018</date>
-*/
-
 namespace Domain.GeneticAlgorithm
 {
     /// <summary>

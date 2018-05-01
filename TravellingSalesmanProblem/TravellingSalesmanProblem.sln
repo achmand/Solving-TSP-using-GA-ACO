@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSP", "TSP\TSP.csproj", "{1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{FD92171D-3AE9-4628-A365-3111D047BC25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvolutionaryComputation", "EvolutionaryComputation\EvolutionaryComputation.csproj", "{8588FE57-FFC2-444A-8349-E2AA088A2427}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FD92171D-3AE9-4628-A365-3111D047BC25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD92171D-3AE9-4628-A365-3111D047BC25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD92171D-3AE9-4628-A365-3111D047BC25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8588FE57-FFC2-444A-8349-E2AA088A2427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8588FE57-FFC2-444A-8349-E2AA088A2427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8588FE57-FFC2-444A-8349-E2AA088A2427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8588FE57-FFC2-444A-8349-E2AA088A2427}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

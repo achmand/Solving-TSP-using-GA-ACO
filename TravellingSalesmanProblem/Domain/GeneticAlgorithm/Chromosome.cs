@@ -1,9 +1,4 @@
-﻿/* 
-* <author>Dylan Vassallo</author>
-* <date>16/03/2018</date>
-*/
-
-/* NOTES:
+﻿/* NOTES:
     - The reason why the chromosome is composed of a generic array is because some may encode the cities 
     as binary too (which can be an array of characters or 1's & 0's). And this could also be used whenever 
     a city is refered to by a letter rather than a number. 
@@ -14,7 +9,6 @@
     http://www.garph.co.uk/ijarie/mar2013/1.pdf
 */
 
-using System;
 using System.Collections.Generic;
 
 namespace Domain.GeneticAlgorithm
@@ -78,6 +72,5 @@ namespace Domain.GeneticAlgorithm
             var genomeString = string.Join(",", Genome);
             return $"Genome: {genomeString}";
         }
-
     }
 }

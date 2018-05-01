@@ -11,7 +11,7 @@ namespace Domain.GeneticAlgorithm
     // TODO -> Charbonneau's genetic algorithm
     // TODO -> Add pooling for chromsomes 
 
-    public class TspGeneticAlgorithm<T>
+    public class GeneticAlgorithm<T>
     {
         #region properties & fields 
 
@@ -34,14 +34,14 @@ namespace Domain.GeneticAlgorithm
 
         #region constructor/s
 
-        public TspGeneticAlgorithm()
+        public GeneticAlgorithm()
         {
             _geneticAlgorithmOptions = new GeneticAlgorithmOptions<T>();
             SetSelectionMethod(_geneticAlgorithmOptions.SelectionMethod);
             Generation = 0;
         }
 
-        public TspGeneticAlgorithm(GeneticAlgorithmOptions<T> geneticAlgorithmOptions)
+        public GeneticAlgorithm(GeneticAlgorithmOptions<T> geneticAlgorithmOptions)
         {
             _geneticAlgorithmOptions = geneticAlgorithmOptions;
             SetSelectionMethod(_geneticAlgorithmOptions.SelectionMethod);

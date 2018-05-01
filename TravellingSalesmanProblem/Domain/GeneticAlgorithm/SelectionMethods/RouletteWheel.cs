@@ -19,7 +19,7 @@
 namespace Domain.GeneticAlgorithm.SelectionMethods
 {
     /// <summary>
-    /// Generic implementation for the roulette wheel selection (RWS) a.k.a 'Fitness proportionate selection'. <para/> A genetic operator used in GA to select potentially useful solutions for recombination. 
+    /// Generic implementation for the roulette wheel selection (RWS) a.k.a 'Fitness proportionate selection'. A genetic operator used in GA to select potentially useful solutions for recombination. 
     /// </summary>
     public sealed class RouletteWheel<T> : ISelectionMethod<T>
     {
