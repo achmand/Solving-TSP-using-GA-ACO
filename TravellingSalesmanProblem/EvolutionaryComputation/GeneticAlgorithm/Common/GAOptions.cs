@@ -42,9 +42,10 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
         public double MutationRate { get; }
 
         /// <summary>
-        /// How many elite chromsomes should be kept unchanged for the next iteration. 
+        /// How many elite chromsomes (percentage from populaton) should be kept unchanged for the next iteration. Must be a value from 0 to 1. 
+        /// If the value is set to 1 non of he population will change, try to keep this value low. 
         /// </summary>
-        public int Elitism { get; }
+        public double Elitism { get; }
 
         /// <summary>
         /// The threshold which stops the GA from evolving.
@@ -82,7 +83,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
         /// <param name="mutationRate">The mutation rate.</param>
         /// <param name="elitisim">The elistism rate.</param>
         /// <param name="iterationThreshold">The iteration threshold which stops the GA.</param>
-        public GAOptions(int populationSize, EncodingType encodingType, SelectionType selectionType, CrossoverType crossoverType, MutationType mutationType, double mutationRate, int elitisim, IterationThreshold iterationThreshold)
+        public GAOptions(int populationSize, EncodingType encodingType, SelectionType selectionType, CrossoverType crossoverType, MutationType mutationType, double mutationRate, double elitisim, IterationThreshold iterationThreshold)
         {
             PopulationSize = populationSize;
             EncodingType = encodingType;

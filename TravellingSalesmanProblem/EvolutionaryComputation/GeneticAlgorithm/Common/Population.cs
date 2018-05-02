@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 
 namespace EvolutionaryComputation.GeneticAlgorithm.Common
 {
+    // TODO -> http://lipas.uwasa.fi/cs/publications/2NWGA/node11.html#estimate
+
     /// <summary>
     /// Generic implementation for a population used in GA, which holds a subset of solution for the current generation. 
     /// </summary>
@@ -19,11 +22,15 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
 
         public int HighestFitnessIndex { get; private set; }
 
+        public double TotalFitness { get; private set; }
+
         public Chromosome<T>[] NextGenChromosomes { get; }
 
         public double NextGenHighestFitness { get; private set; }
 
         public int NextGenHighestFitnessIndex { get; private set; }
+
+        public double NextGenTotalFitness { get; private set; }
 
         /// <summary>
         /// Gets the population size.
@@ -48,13 +55,18 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
 
         #region public methods 
 
+        // TODO -> This should not be like this 
+        public void SortByFitness()
+        {
+            Chromosomes = Chromosomes.OrderByDescending(c => c.Fitness).ToArray();
+        }
+
         /// <summary>
         /// Adds a chromsome to the population at the specified index.
         /// </summary>
         /// <param name="index">The index to add the chromsome at.</param>
         /// <param name="chromosome">The chromsome to be added.</param>
-        /// <param name="nextGen"></param>
-        public void AddChromosome(int index, Chromosome<T> chromosome, bool nextGen = false)
+        public void AddChromosome(int index, Chromosome<T> chromosome)
         {
             if (index >= PopulationSize || index < 0)
             {
@@ -62,32 +74,52 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
             }
 
             var fitness = chromosome.Fitness;
-            var currentHighestFitness = nextGen ? NextGenHighestFitness : HighestFitness;
-            var registerNewHigh = currentHighestFitness < fitness;
+            NextGenChromosomes[index] = chromosome;
+            NextGenTotalFitness += fitness;
 
-            if (nextGen)
+            if (NextGenHighestFitness < fitness)
             {
-                NextGenChromosomes[index] = chromosome;
-                if (!registerNewHigh)
-                {
-                    return;
-                }
-
                 NextGenHighestFitness = fitness;
                 NextGenHighestFitnessIndex = index;
             }
-            else
-            {
-                Chromosomes[index] = chromosome;
-                if (!registerNewHigh)
-                {
-                    return;
-                }
-
-                HighestFitness = fitness;
-                HighestFitnessIndex = index;
-            }
         }
+
+        //public void AddChromosome(int index, Chromosome<T> chromosome, bool nextGen = false)
+        //{
+        //    if (index >= PopulationSize || index < 0)
+        //    {
+        //        throw new Exception("Index does not exist.");
+        //    }
+
+        //    var fitness = chromosome.Fitness;
+        //    var currentHighestFitness = nextGen ? NextGenHighestFitness : HighestFitness;
+        //    var registerNewHigh = currentHighestFitness < fitness;
+
+        //    if (nextGen)
+        //    {
+        //        NextGenChromosomes[index] = chromosome;
+        //        NextGenTotalFitness += fitness;
+        //        if (!registerNewHigh)
+        //        {
+        //            return;
+        //        }
+
+        //        NextGenHighestFitness = fitness;
+        //        NextGenHighestFitnessIndex = index;
+        //    }
+        //    else
+        //    {
+        //        Chromosomes[index] = chromosome;
+        //        TotalFitness += fitness;
+        //        if (!registerNewHigh)
+        //        {
+        //            return;
+        //        }
+
+        //        HighestFitness = fitness;
+        //        HighestFitnessIndex = index;
+        //    }
+        //}
 
         public void SetNextGeneration()
         {
@@ -95,9 +127,11 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
 
             HighestFitness = NextGenHighestFitness;
             HighestFitnessIndex = NextGenHighestFitnessIndex;
+            TotalFitness = NextGenTotalFitness;
 
             NextGenHighestFitness = 0;
             NextGenHighestFitnessIndex = 0;
+            NextGenTotalFitness = 0;
 
             Chromosomes = NextGenChromosomes; // set the current population to the next generation population
         }

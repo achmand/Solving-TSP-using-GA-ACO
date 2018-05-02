@@ -10,6 +10,8 @@
 
         public double Fitness { set; get; }
 
+        public double Distance { set; get; }
+
         #endregion properties
 
         #region constructors 

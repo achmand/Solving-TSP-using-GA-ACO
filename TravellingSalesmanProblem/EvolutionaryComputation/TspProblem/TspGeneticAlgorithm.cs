@@ -37,12 +37,15 @@ namespace EvolutionaryComputation.TspProblem
             CreateInitialPopulation();
             while (Generation < 10000)
             {
+                var bestIndex = Population.HighestFitnessIndex;
+                var bestChromomsome = Population.Chromosomes[bestIndex];
+                Console.WriteLine(bestChromomsome.Distance);
                 CreateNextGeneration();
             }
 
-            var bestIndex = Population.HighestFitnessIndex;
-            var bestChromomsome = Population.Chromosomes[bestIndex];
-            Console.WriteLine(string.Join(",", bestChromomsome.Genome));
+            //var bestIndex = Population.HighestFitnessIndex;
+            //var bestChromomsome = Population.Chromosomes[bestIndex];
+
             Console.WriteLine("Finished");
         }
 
@@ -51,6 +54,7 @@ namespace EvolutionaryComputation.TspProblem
         #region private methods 
 
         // TODO -> Find different ways to create initial population 
+        // TODO-> always add in next gen
         private void CreateInitialPopulation()
         {
             var citiesSet = _tspInstance.CitiesSet;
@@ -89,14 +93,28 @@ namespace EvolutionaryComputation.TspProblem
 
                 Population.AddChromosome(i, chromosome);
             }
+
+            // prepare for next evolution
+            Population.SetNextGeneration();
+            SelectionOperator.SetNextGeneration();
         }
 
         private void CreateNextGeneration()
         {
-            // TODO -> Elitism 
+            var startingIndex = UsingElitism ? NumberOfElite : 0;
+            if (UsingElitism)
+            {
+                Population.SortByFitness();
+                for (int i = 0; i < NumberOfElite; i++)
+                {
+                    Population.AddChromosome(i, Population.Chromosomes[i]);
+                }
+
+                startingIndex = NumberOfElite;
+            }
 
             var populationSize = Population.PopulationSize;
-            for (int i = 0; i < populationSize; i++)
+            for (int i = startingIndex; i < populationSize; i++)
             {
                 // TODO -> Should I make sure that both parents are different ??
 
@@ -111,7 +129,8 @@ namespace EvolutionaryComputation.TspProblem
                 MutationOperator.Mutate(childChromosome);
 
                 // add child chromsome to the next generation population
-                Population.AddChromosome(i, childChromosome, true);
+                CalculateFitness(childChromosome);
+                Population.AddChromosome(i, childChromosome);
             }
 
             // prepare for next evolution
@@ -153,6 +172,7 @@ namespace EvolutionaryComputation.TspProblem
             }
 
             chromosome.Fitness = 1 / distance; // using inverse since the shortest is better
+            chromosome.Distance = distance;
         }
 
         #endregion

@@ -68,11 +68,11 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Selection
         private void NormalizeFitness(Population<T> population)
         {
             var chromosomes = population.Chromosomes;
-            var highestFit = population.HighestFitness;
+            var totalFitness = population.TotalFitness;
 
             for (var i = 0; i < population.PopulationSize; i++)
             {
-                NormalizedFitness[i] = chromosomes[i].Fitness / highestFit;
+                NormalizedFitness[i] = chromosomes[i].Fitness / totalFitness;
             }
 
             FitnessNormalized = true;

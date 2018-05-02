@@ -44,6 +44,8 @@ namespace EvolutionaryComputation.GeneticAlgorithm
 
         protected bool UsingElitism => GaOptions.Elitism > 0;
 
+        protected int NumberOfElite;
+
         #endregion properties 
 
         #region constructor/s
@@ -81,9 +83,13 @@ namespace EvolutionaryComputation.GeneticAlgorithm
         /// </summary>
         private void Initialize()
         {
-            Population = new Population<T>(GaOptions.PopulationSize);
+            var populationSize = GaOptions.PopulationSize;
+            Population = new Population<T>(populationSize);
             Random = new Random();
             Generation = 0;
+
+            var elite = GaOptions.Elitism;
+            NumberOfElite = (int)(populationSize * elite);
             SetOperators();
         }
 
