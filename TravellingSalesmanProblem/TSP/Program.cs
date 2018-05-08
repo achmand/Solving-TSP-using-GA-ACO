@@ -57,9 +57,9 @@ namespace TSP
 
             //Console.WriteLine(tspCities.CitiesToString());
 
-            var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Rws, CrossoverType.OrderOne, MutationType.SingleSwap, 0.3, 0.5, IterationThreshold.SpecifiedGenerations);
-            //var tspGeneticAlgorithm = new TspGeneticAlgorithm(gaOptions, tspCities);
-            ////tspGeneticAlgorithm.Evolve();
+            var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Rws, CrossoverType.Cycle, MutationType.SingleSwap, 0.3, 0.5, IterationThreshold.SpecifiedGenerations);
+            var tspGeneticAlgorithm = new TspGeneticAlgorithm(gaOptions, tspCities);
+            tspGeneticAlgorithm.Evolve();
             // var chromosome = new Chromosome<int>(new []{49,32,45,19,41,8,9,10,43,33,51,11,52,14,13,47,26,27,28,12,25,4,6,15,5,24,48,38,37,40,39,36,35,34,44,46,16,29,50,20,23,30,2,7,42,21,17,3,18,31,22 });
 
             //var chromsome = new Chromosome<int>(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
@@ -68,17 +68,17 @@ namespace TSP
 
             //var child = single.Crossover(chromsome, chromsomeB);
             //Console.WriteLine(string.Join(",", child.Genome));
-            var cycleTest = new CycleCrossover<int>(new Random());
-            var chromsome = new Chromosome<int>(new[] { 8, 4, 7, 3, 6, 2, 5, 1, 9, 0 });
-            var chromsomeB = new Chromosome<int>(new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
-            
-            cycleTest.Crossover(chromsome, chromsomeB);
+            //var cycleTest = new CycleCrossover<int>(new Random());
+            //var chromsome = new Chromosome<int>(new[] { 8, 4, 7, 3, 6, 2, 5, 1, 9, 0 });
+            //var chromsomeB = new Chromosome<int>(new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 
-            chromsome = new Chromosome<int>(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
-            chromsomeB = new Chromosome<int>(new[] { 9, 3, 7, 8, 2, 6, 5, 1, 4 });
+            //cycleTest.Crossover(chromsome, chromsomeB);
 
-            Console.WriteLine("");
-            cycleTest.Crossover(chromsome, chromsomeB);
+            //chromsome = new Chromosome<int>(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+            //chromsomeB = new Chromosome<int>(new[] { 9, 3, 7, 8, 2, 6, 5, 1, 4 });
+
+            //Console.WriteLine("");
+            //cycleTest.Crossover(chromsome, chromsomeB);
 
             Console.ReadLine();
 

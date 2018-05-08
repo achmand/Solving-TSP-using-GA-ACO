@@ -122,6 +122,7 @@ namespace EvolutionaryComputation.TspProblem
                 var fatherChromosome = SelectionOperator.PopulationSelection(Population);
                 var motherChromosome = SelectionOperator.PopulationSelection(Population);
 
+                // TODO -> return more than one child always!!!
                 // crossover operation
                 var childChromosome = CrossoverOperator.Crossover(fatherChromosome, motherChromosome); // TODO -> some crossovers can return more than one child 
 

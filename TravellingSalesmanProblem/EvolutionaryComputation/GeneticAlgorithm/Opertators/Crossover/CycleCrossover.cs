@@ -55,6 +55,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
 
         #region private methods 
 
+        // TODO -> return more than one child always!!!
         protected override Chromosome<T> _Crossover(Chromosome<T> fatherChromosome, Chromosome<T> motherChromosome)
         {
             _cycles.Clear();
@@ -97,10 +98,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
                 CopyAlternateCycle(currentCycle, fatherGenome, motherGenome, chromosomeA, chromosomeB);
             }
 
-            Console.WriteLine(string.Join(",", childChromosomeA.GetGenome()));
-            Console.WriteLine(string.Join(",", childChromosomeB.GetGenome()));
-
-            return null;
+            return childChromosomeA;
         }
 
         private void CreateCycle(IReadOnlyList<T> motherGenome, int geneIndex, ICollection<int> currentCycle)
