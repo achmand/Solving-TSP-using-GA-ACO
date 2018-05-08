@@ -48,12 +48,14 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
             // copying the random set between the two points to the child 
             for (int i = cutoffA; i < cutoffB; i++)
             {
-                childChromosome.Genome[i] = fatherChromosome.Genome[i];
+                //childChromosome.Genome[i] = fatherChromosome.Genome[i];
+                childChromosome.InsertGene(i, fatherChromosome.GetGene(i));
             }
 
             // make a copy of the second parent
             var motherChromosomeCopy = new T[genomeLength];
-            var motherGenome = motherChromosome.Genome;
+            //var motherGenome = motherChromosome.Genome;
+            var motherGenome = motherChromosome.GetGenome();
             motherGenome.CopyTo(motherChromosomeCopy, 0); // TODO -> Is this really needed can I do something with modulo instead of having another array 
 
             // shift the mother array to the right (number of empty slots on the right)
@@ -67,9 +69,12 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
             for (int i = 0; i < genomeLength; i++)
             {
                 var tmpGene = motherChromosomeCopy[i];
-                if (!childChromosome.Genome.Contains(tmpGene))
+                //if (!childChromosome.Genome.Contains(tmpGene))
+                if (!childChromosome.GetGenome().Contains(tmpGene))
                 {
-                    childChromosome.Genome[currentCounter % genomeLength] = tmpGene;
+                    //childChromosome.Genome[currentCounter % genomeLength] = tmpGene;
+                    var index = currentCounter % genomeLength;
+                    childChromosome.InsertGene(index, tmpGene);
                     currentCounter++;
                 }
             }

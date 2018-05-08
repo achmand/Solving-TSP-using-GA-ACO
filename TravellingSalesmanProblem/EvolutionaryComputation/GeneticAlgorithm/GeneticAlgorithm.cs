@@ -121,10 +121,13 @@ namespace EvolutionaryComputation.GeneticAlgorithm
                 throw new Exception("Crossover method cannot be none when setting the method.");
             }
 
-            switch (crossoverType)  
+            switch (crossoverType)
             {
                 case CrossoverType.OrderOne:
                     CrossoverOperator = new OrderOne<T>(Random);
+                    break;
+                case CrossoverType.Cycle:
+                    CrossoverOperator = new CycleCrossover<T>(Random);
                     break;
             }
             /*** setting the crossover operator to the specified type ***/

@@ -146,7 +146,7 @@ namespace EvolutionaryComputation.TspProblem
             var citiesSet = _tspInstance.CitiesSet;
 
             var distance = 0d;
-            var genome = chromosome.Genome;
+            var genome = chromosome.GetGenome();
 
             var initialVector = citiesSet[1];
 
