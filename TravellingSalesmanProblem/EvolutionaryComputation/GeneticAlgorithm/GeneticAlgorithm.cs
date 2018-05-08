@@ -98,6 +98,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm
         /// </summary>
         private void SetOperators()
         {
+            /*** setting the selection operator to the specified type ***/
             var selectionType = GaOptions.SelectionType;
             if (selectionType == SelectionType.None)
             {
@@ -105,38 +106,43 @@ namespace EvolutionaryComputation.GeneticAlgorithm
             }
 
             var populationSize = Population.PopulationSize;
-            switch (selectionType) // setting the selection operator to the specified type
+            switch (selectionType)
             {
                 case SelectionType.Rws:
                     SelectionOperator = new RouletteWheel<T>(populationSize, Random);
                     break;
             }
+            /*** setting the selection operator to the specified type ***/
 
+            /*** setting the crossover operator to the specified type ***/
             var crossoverType = GaOptions.CrossoverType;
             if (crossoverType == CrossoverType.None)
             {
                 throw new Exception("Crossover method cannot be none when setting the method.");
             }
 
-            switch (crossoverType) // setting the crossover operator to the specified type 
+            switch (crossoverType)  
             {
                 case CrossoverType.OrderOne:
                     CrossoverOperator = new OrderOne<T>(Random);
                     break;
             }
+            /*** setting the crossover operator to the specified type ***/
 
+            /*** setting the mutation operator to the specified type ***/
             var mutationType = GaOptions.MutationType;
             if (mutationType == MutationType.None)
             {
                 throw new Exception("Mutation method cannot be none when setting the method.");
             }
 
-            switch (mutationType) // setting the mutation operator to the specified type 
+            switch (mutationType)
             {
                 case MutationType.SingleSwap:
                     MutationOperator = new SingleSwapMutation<T>(Random);
                     break;
             }
+            /*** setting the mutation operator to the specified type ***/
         }
 
         #endregion private methods

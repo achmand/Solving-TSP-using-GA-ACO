@@ -17,6 +17,11 @@
         /// <summary>
         /// Roulette Wheel Selection (RWS) a.k.a 'Fitness Proportionate Selection'.
         /// </summary>
-        Rws
+        Rws,
+        /// <summary>
+        /// Tournament selection (TOS). A variant of rank-based selection methods. 
+        /// </summary>
+        Tos, 
+
     }
 }

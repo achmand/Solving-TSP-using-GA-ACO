@@ -22,8 +22,12 @@
         /// </summary>
         Pmx = 1,
         /// <summary>
-        /// Order 1 crossover opertator. 
+        /// Order 1 crossover operator. 
         /// </summary>
         OrderOne = 2,
+        /// <summary>
+        /// Cycle crossover operator. 
+        /// </summary>
+        Cycle,
     }
 }

@@ -31,8 +31,14 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
 
         #region public methods 
 
+        // TODO -> Should I return 2 children instead ???
         public Chromosome<T> Crossover(Chromosome<T> fatherChromosome, Chromosome<T> motherChromosome)
         {
+            if (fatherChromosome.GenomeLength != motherChromosome.GenomeLength)
+            {
+                throw new Exception("Both parent chromosomes must have the same genome length.");
+            }
+
             return _Crossover(fatherChromosome, motherChromosome);
         }
 

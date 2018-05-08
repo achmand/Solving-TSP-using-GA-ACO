@@ -4,7 +4,12 @@ using EvolutionaryComputation.GeneticAlgorithm.Common;
 
 namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
 {
-    // this will work for permutation encoding 
+    /* NOTES:
+    - For more information on order one crossover visit:
+    http://www.rubicite.com/Tutorials/GeneticAlgorithms/CrossoverOperators/Order1CrossoverOperator.aspx
+
+    This crossover operator will work for permutation encoding
+    */
 
     public sealed class OrderOne<T> : CrossoverOperator<T>
     {
@@ -21,17 +26,12 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
 
         public OrderOne(Random random) : base(random) { }
 
-        #endregion constructors 
+        #endregion constructor/s 
 
         #region private methods
 
         protected override Chromosome<T> _Crossover(Chromosome<T> fatherChromosome, Chromosome<T> motherChromosome)
         {
-            if (fatherChromosome.GenomeLength != motherChromosome.GenomeLength)
-            {
-                throw new Exception("Both parent chromosomes must have the same genome length.");
-            }
-
             var cutoffA = 0;
             var cutoffB = 0;
             var genomeLength = fatherChromosome.GenomeLength;

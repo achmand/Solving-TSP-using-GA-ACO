@@ -35,7 +35,7 @@ namespace EvolutionaryComputation.TspProblem
         public void Evolve()
         {
             CreateInitialPopulation();
-            while (Generation < 10000)
+            while (Generation < 30000)
             {
                 var bestIndex = Population.HighestFitnessIndex;
                 var bestChromomsome = Population.Chromosomes[bestIndex];
