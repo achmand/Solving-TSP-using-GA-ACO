@@ -44,10 +44,10 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
 
         #region constructor/s 
 
-        public CycleCrossover(Random random) : base(random)
+        public CycleCrossover(Random random /*, IEqualityComparer<T> equalityComparer*/) : base(random)
         {
             _cycles = new List<List<int>>();
-            _lookupDictionary = new Dictionary<T, int>(); // since I am using generics I can't specify the Equality Comparer
+            _lookupDictionary = new Dictionary<T, int>(/*equalityComparer*/); // since I am using generics I can't specify the Equality Comparer
             _cycleIndexSet = new HashSet<int>(Integer32EqualityComparer.Default);
         }
 
