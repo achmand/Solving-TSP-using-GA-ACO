@@ -32,10 +32,13 @@ namespace EvolutionaryComputation.TspProblem
 
         #region public methods 
 
-        public void Evolve()
+        /// <summary>
+        /// Computes the TSP instance using Genetic Algorithm. 
+        /// </summary>
+        public void Compute()
         {
             CreateInitialPopulation();
-            while (Generation < 30000)
+            while (Generation < 10000)
             {
                 var bestIndex = Population.HighestFitnessIndex;
                 var bestChromomsome = Population.Chromosomes[bestIndex];

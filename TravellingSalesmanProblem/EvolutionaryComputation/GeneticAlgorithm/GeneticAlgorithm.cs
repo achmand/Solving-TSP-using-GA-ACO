@@ -85,7 +85,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm
         {
             var populationSize = GaOptions.PopulationSize;
             Population = new Population<T>(populationSize);
-            Random = new Random();
+            Random = new Random(0); // TODO -> Check about this seed 
             Generation = 0;
 
             var elite = GaOptions.Elitism;

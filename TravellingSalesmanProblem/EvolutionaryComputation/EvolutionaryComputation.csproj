@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AntColonyOptimization\Common\ACOOptions.cs" />
+    <Compile Include="AntColonyOptimization\Common\Ant.cs" />
+    <Compile Include="AntColonyOptimization\Common\AntColonyProgram.cs" />
+    <Compile Include="AntColonyOptimization\TspAntColonyOptimization.cs" />
     <Compile Include="GeneticAlgorithm\Common\Chromosome.cs" />
     <Compile Include="GeneticAlgorithm\Common\EncodingType.cs" />
     <Compile Include="GeneticAlgorithm\Common\GAOptions.cs" />
@@ -63,9 +67,7 @@
     <Compile Include="Utilities\Integer32EqualityComparer.cs" />
     <Compile Include="Utilities\Vector2.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AntColonyOptimization\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

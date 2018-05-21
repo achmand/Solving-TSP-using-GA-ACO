@@ -6,7 +6,7 @@ namespace EvolutionaryComputation.TspProblem
 {
     /* NOTES:
     - For more information on selection TSP instance visit:
-    //http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/tsp95.pdf
+    http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/tsp95.pdf
     */
 
     public sealed class TspInstance
@@ -16,6 +16,8 @@ namespace EvolutionaryComputation.TspProblem
         public int Dimensions { get; set; }
 
         public Dictionary<int, Vector2> CitiesSet { get; set; }
+
+        public int CitiesLength => CitiesSet.Count;
 
         private StringBuilder _stringBuilder;
 
