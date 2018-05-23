@@ -48,7 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="berlin52.tsp" />
+    <None Include="TSPInstances\a280.tsp" />
+    <None Include="TSPInstances\berlin52.tsp" />
+    <None Include="TSPInstances\ch130.tsp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EvolutionaryComputation\EvolutionaryComputation.csproj">

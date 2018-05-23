@@ -257,6 +257,7 @@ namespace AntColony
                 trail[i + 1] = next;
                 visited[next] = true;
             }
+
             return trail;
         }
 

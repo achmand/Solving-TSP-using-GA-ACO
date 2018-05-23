@@ -43,7 +43,8 @@
     <Compile Include="AntColonyOptimization\Common\ACOOptions.cs" />
     <Compile Include="AntColonyOptimization\Common\Ant.cs" />
     <Compile Include="AntColonyOptimization\Common\AntColonyProgram.cs" />
-    <Compile Include="AntColonyOptimization\TspAntColonyOptimization.cs" />
+    <Compile Include="AntColonyOptimization\ATspAntColonyOptimization.cs" />
+    <Compile Include="AntColonyOptimization\Common\TspAntColonyOptimization.cs" />
     <Compile Include="GeneticAlgorithm\Common\Chromosome.cs" />
     <Compile Include="GeneticAlgorithm\Common\EncodingType.cs" />
     <Compile Include="GeneticAlgorithm\Common\GAOptions.cs" />

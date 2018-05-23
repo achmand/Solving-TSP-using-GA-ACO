@@ -5,8 +5,9 @@ using EvolutionaryComputation.Utilities;
 namespace EvolutionaryComputation.TspProblem
 {
     /* NOTES:
-    - For more information on selection TSP instance visit:
-    http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/tsp95.pdf
+    - TSP Instances taken from
+    All instances used for TSP are SYMMETRIC 
+    http://elib.zib.de/pub/mp-testdata/tsp/tsplib/tsplib.html
     */
 
     public sealed class TspInstance

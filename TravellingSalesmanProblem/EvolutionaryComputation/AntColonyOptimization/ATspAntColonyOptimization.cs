@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 using EvolutionaryComputation.AntColonyOptimization.Common;
 using EvolutionaryComputation.TspProblem;
 
 namespace EvolutionaryComputation.AntColonyOptimization
 {
-    public class TspAntColonyOptimization
+    public class ATspAntColonyOptimization
     {
         //#region properties 
 
@@ -137,7 +139,7 @@ namespace EvolutionaryComputation.AntColonyOptimization
         /// </summary>
         /// <param name="acoOptions">The <see cref="ACOOptions"/> used in the ACO.</param>
         /// <param name="tspInstance"></param>
-        public TspAntColonyOptimization(ACOOptions acoOptions, TspInstance tspInstance)
+        public ATspAntColonyOptimization(ACOOptions acoOptions, TspInstance tspInstance)
         {
             Random = new Random(0);
 
@@ -158,18 +160,34 @@ namespace EvolutionaryComputation.AntColonyOptimization
             InitializeAnts();
 
             // initializes the pheromone information which is stored in a jagged array
-            InitializePheromones(); 
+            InitializePheromones();
 
             // gets the ant with the best path after initialization (after setting random trails)
             var antWithShortestPath = FindAntWithShortestPath();
+            var shortestPathDistance = antWithShortestPath.PathDistance;
 
             Console.WriteLine(antWithShortestPath.PathDistance);
 
-            while (CurrentIteration < 10000)
+            while (CurrentIteration < 1000)
             {
                 UpdateAntPaths();
-                CurrentIteration ++;
+                // TODO => Update pheromones 
+
+                var currentAntWithShortestPath = FindAntWithShortestPath();
+                var currentShortestPathDistance = currentAntWithShortestPath.PathDistance;
+                if (currentShortestPathDistance < shortestPathDistance)
+                {
+                    shortestPathDistance = currentShortestPathDistance;
+                    antWithShortestPath = currentAntWithShortestPath;
+                    Console.WriteLine($"A new shorter distance was found at iteration {CurrentIteration} with length {shortestPathDistance}.");
+                }
+
+                CurrentIteration++;
             }
+
+            Console.WriteLine($"Best path found is {string.Join(",", antWithShortestPath.Path)}, with a distance of {shortestPathDistance}");
+            
+            Console.WriteLine($"test {antWithShortestPath.Path.Length} {string.Join(",",antWithShortestPath.Path.OrderBy(s => s))}");
         }
 
         #endregion public methods 
@@ -186,14 +204,14 @@ namespace EvolutionaryComputation.AntColonyOptimization
 
             // since we are returning to the initial city the trail must have a length of the total cities + 1
             var pathLength = _tspInstance.CitiesSet.Count + 1;
+
             // initialize a new path
             var sequentialPath = new int[pathLength];
 
             // initially set a sequential path
             for (int i = 0; i < pathLength - 1; i++)
             {
-                // we use i + 1 since cities start with 1 not 0
-                sequentialPath[i] = i + 1;
+                sequentialPath[i] = i;
             }
 
             // initially we want to set random trails/paths to the ants
@@ -213,14 +231,14 @@ namespace EvolutionaryComputation.AntColonyOptimization
 
             // TODO -> REMOVE THIS ONLY USED FOR TESTING PURPOSES 
             // Best solution for berlin52  just to make sure  
-            var antA = new Ant(new[] { 1, 49, 32, 45, 19, 41, 8, 9, 10, 43, 33, 51, 11, 52, 14, 13, 47, 26, 27, 28, 12, 25, 4, 6, 15, 5, 24, 48, 38, 37, 40, 39, 36, 35, 34, 44, 46, 16, 29, 50, 20, 23, 30, 2, 7, 42, 21, 17, 3, 18, 31, 22, 1 });
-            CalculatePathDistance(antA);
-            Console.WriteLine(antA.PathDistance);
-            for (int i = 0; i < totalAnts; i++)
-            {
-                var ant = Ants[i];
-                Console.WriteLine(string.Join(",", ant.Path) + " " + ant.PathDistance);
-            }
+            //var antA = new Ant(new[] { 1, 49, 32, 45, 19, 41, 8, 9, 10, 43, 33, 51, 11, 52, 14, 13, 47, 26, 27, 28, 12, 25, 4, 6, 15, 5, 24, 48, 38, 37, 40, 39, 36, 35, 34, 44, 46, 16, 29, 50, 20, 23, 30, 2, 7, 42, 21, 17, 3, 18, 31, 22, 1 });
+            //CalculatePathDistance(antA);
+            //Console.WriteLine(antA.PathDistance);
+            //for (int i = 0; i < totalAnts; i++)
+            //{
+            //    var ant = Ants[i];
+            //    Console.WriteLine(string.Join(",", ant.Path) + " " + ant.PathDistance);
+            //}
         }
 
         /// <summary>
@@ -256,42 +274,121 @@ namespace EvolutionaryComputation.AntColonyOptimization
             for (int i = 0; i < Ants.Length; i++)
             {
                 var updatedTrail = UpdateTrail();
-                Ants[i].SetNewPath(updatedTrail);
+                var ant = Ants[i];
+                ant.SetNewPath(updatedTrail);
+                CalculatePathDistance(ant);
             }
         }
 
         private int[] UpdateTrail()
         {
             var citiesLength = _tspInstance.CitiesLength;
-            var updatedTrail = new int[citiesLength + 1];
+            var updatedTrail = new int[citiesLength];
 
             var visitedCities = new bool[citiesLength];
-            updatedTrail[0] = 1;
-            updatedTrail[updatedTrail.Length - 1] = 1;
 
-            for (int i = 0; i < citiesLength - 2; i++)
+            updatedTrail[0] = 0; // since the path must start at city with ID 1 
+            updatedTrail[updatedTrail.Length - 1] = 0; // since the path must end at city with ID 1 
+
+            for (int i = 0; i <= citiesLength - 2; i++)
             {
-                
+                var tmpCity = updatedTrail[i];
+                var nextCity = GetNextCity(tmpCity, visitedCities);
+                updatedTrail[i + 1] = nextCity;
+                visitedCities[nextCity] = true;
             }
 
-
+            //Console.WriteLine(string.Join("," , updatedTrail));
             return updatedTrail;
         }
 
-        private int GetNextCity()
+        private int GetNextCity(int targetCity, bool[] vistedCities)
         {
+            var probabilities = MoveCityProbabilities(targetCity, vistedCities);
 
-            return 0;
+            double[] cumul = new double[probabilities.Length + 1];
+            for (int i = 0; i <= probabilities.Length - 1; i++)
+            {
+                cumul[i + 1] = cumul[i] + probabilities[i];
+                // consider setting cumul[cuml.Length-1] to 1.00
+            }
+
+            double p = Random.NextDouble();
+            for (int i = 0; i <= cumul.Length - 2; i++)
+            {
+                if (p >= cumul[i] && p < cumul[i + 1])
+                {
+                    return i;
+                }
+            }
+
+            throw new Exception("Failure to return valid city in NextCity");
         }
 
-        private double[] MoveCityProbabilities()
+        private double[] MoveCityProbabilities(int targetCity, bool[] vistedCities)
         {
             var citiesLength = _tspInstance.CitiesLength;
 
             // an array called taueta which holds the value of: pheromone ^ alpha * (1 / distane ^ beta)
             var taueta = new double[citiesLength];
 
-            return null;
+            // hold the sum for all the taueta values 
+            var tauetaSumation = 0.0;
+
+            // summing all of the tauetas
+            for (int i = 0; i <= taueta.Length - 1; i++)
+            {
+                // if i is the target city, the probability of moving the the same city is set to 0
+                if (i == targetCity)
+                {
+                    taueta[i] = 0.0;
+                }
+
+                // the probability of moving to a city which is already visted is 0
+                else if (vistedCities[i])
+                {
+                    taueta[i] = 0.0;
+                }
+
+                // calculating taueta value (non visted city)
+                else
+                {
+                    // pheromone ^ alpha
+                    var alpha = AcoOptions.Alpha;
+                    var pheromoneLevel = Pheromones[targetCity][i];
+                    var pheromoneAlpha = Math.Pow(pheromoneLevel, alpha);
+
+                    // (1 / distane ^ beta)
+                    var beta = AcoOptions.Beta;
+                    var distance = 1.0 / CalculateCitiesDistance(targetCity + 1, i + 1);
+                    var distanceBeta = Math.Pow(distance, beta);
+
+                    // pheromone ^ alpha * (1 / distane ^ beta)
+                    var tauetaValue = pheromoneAlpha * distanceBeta;
+                    taueta[i] = tauetaValue;
+
+                    // TODO -> Check these out !!!
+                    if (taueta[i] < 0.0001)
+                    {
+                        taueta[i] = 0.0001;
+                    }
+                    else if (taueta[i] > double.MaxValue / (citiesLength * 100))
+                    {
+                        taueta[i] = double.MaxValue/(citiesLength*100);
+                    }
+                }
+
+                tauetaSumation += taueta[i];
+            }
+
+            // after taueta values are computed we must divide each value with the taueta summation
+            var probabilities = new double[citiesLength];
+            for (int i = 0; i < probabilities.Length; i++)
+            {
+                probabilities[i] = taueta[i]/tauetaSumation;
+            }
+
+            return probabilities;
         }
 
         /// <summary>
@@ -300,23 +397,47 @@ namespace EvolutionaryComputation.AntColonyOptimization
         /// <param name="ant">The <see cref="Ant"/> passed to calculate distance of the current path.</param>
         private void CalculatePathDistance(Ant ant)
         {
-            var cities = _tspInstance.CitiesSet;
+            //var cities = _tspInstance.CitiesSet;
             var path = ant.Path;
 
-            var totalDistance = 0.0; 
+            var totalDistance = 0.0;
             for (int i = 0; i < path.Length - 1; i++)
             {
                 var cityIndexA = path[i];
                 var cityIndexB = path[i + 1];
 
-                var cityA = cities[cityIndexA];
-                var cityB = cities[cityIndexB];
+                //var cityA = cities[cityIndexA];
+                //var cityB = cities[cityIndexB];
 
-                var distance = cityA.CalcMagnitude(cityB);
+                //var distance = cityA.CalcMagnitude(cityB);
+
+                var distance = CalculateCitiesDistance(cityIndexA + 1, cityIndexB + 1);
                 totalDistance += distance;
             }
 
             ant.PathDistance = totalDistance;
+        }
+
+        private double CalculateCitiesDistance(int cityAIndex, int cityBIndex)
+        {
+            var cities = _tspInstance.CitiesSet;
+            if (!cities.ContainsKey(cityAIndex))
+            {
+                throw new Exception($"City A with ID {cityAIndex} is not found in the cities collection.");
+            }
+
+            if (!cities.ContainsKey(cityBIndex))
+            {
+                throw new Exception($"City B with ID {cityBIndex} is not found in the cities collection.");
+            }
+
+            var cityA = cities[cityAIndex];
+            var cityB = cities[cityBIndex];
+
+            // TODO -> Add IDistanceCalculator 
+
+            var distance = cityA - cityB;
+            return distance.Magnitude;
         }
 
         private Ant FindAntWithShortestPath()
@@ -347,7 +468,7 @@ namespace EvolutionaryComputation.AntColonyOptimization
             {
                 Console.WriteLine("\nBegin Ant Colony Optimization demo\n");
 
-                int numCities = 60;
+                int numCities = 5;
                 int numAnts = 4;
                 int maxTime = 1000;
 
@@ -543,6 +664,7 @@ namespace EvolutionaryComputation.AntColonyOptimization
             int numCities = pheromones.Length;
             int[] trail = new int[numCities];
             bool[] visited = new bool[numCities];
+
             trail[0] = start;
             visited[start] = true;
             for (int i = 0; i <= numCities - 2; i++)
@@ -719,7 +841,7 @@ namespace EvolutionaryComputation.AntColonyOptimization
             {
                 for (int j = i + 1; j <= numCities - 1; j++)
                 {
-                    int d = Random.Next(1, 9);
+                    int d = 1;
                     // [1,8]
                     dists[i][j] = d;
                     dists[j][i] = d;
