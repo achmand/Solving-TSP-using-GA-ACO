@@ -24,38 +24,21 @@ namespace TSP
 
     class Program
     {
+        // TODO -> Inputs from arguments 
+
         static void Main(string[] args)
         {
-            var test = false;
-            var tspCities = new TspInstance();
+            const string testingPath = "C:/Users/Nalyd/Desktop/Current Projects/Github/Solving-TSP-using-GA-ACO/TravellingSalesmanProblem/TSP/TSPInstances/berlin52.tsp";
+            var tspInstance = new TspInstance(testingPath);
 
-            //var t = 0;
-            // TODO -> Properly get inputs from TSP files 
-            foreach (var line in File.ReadLines("C:/Users/Nalyd/Desktop/Current Projects/Github/Solving-TSP-using-GA-ACO/TravellingSalesmanProblem/TSP/berlin52.tsp"))
-            {
-                if (line == "EOF")
-                {
-                    test = false;
-                }
+            var acoB = new ATspAntColonyOptimization(new ACOOptions(4, 3, 2, 0.01, 2.00), tspInstance);
+            var aco = new TspAntColonyOptimization(new ACOOptions(4, 3, 2, 0.02, 1.50), tspInstance);
+            aco.Compute();
+            acoB.DoOptimization();
 
-                if (test)
-                {
-                    var details = line.Split(null);
-                    tspCities.CitiesSet.Add(Convert.ToInt32(details[0]), new Vector2(float.Parse(details[1]), float.Parse(details[2])));
+            //Console.WriteLine(tspInstance.ToString());
 
-                    //t++;
 
-                    //if (t >= 4)
-                    //{
-                    //    break;
-                    //}
-                }
-
-                if (line == "NODE_COORD_SECTION")
-                {
-                    test = true;
-                }
-            }
 
             //Console.WriteLine(tspCities.CitiesToString());
 
@@ -66,10 +49,10 @@ namespace TSP
             //var aco = new TspAntColonyOptimization(new ACOOptions(4, 3, 2, 0.01, 2.00), tspCities);
             //aco.DoOptimization();
 
-            var acoB = new ATspAntColonyOptimization(new ACOOptions(4, 3, 2, 0.01, 2.00), tspCities);
-            var aco = new TspAntColonyOptimization(new ACOOptions(4, 3, 2, 0.02, 1.50), tspCities);
-            aco.Compute();
-            acoB.DoOptimization();
+            //var acoB = new ATspAntColonyOptimization(new ACOOptions(4, 3, 2, 0.01, 2.00), tspCities);
+            //var aco = new TspAntColonyOptimization(new ACOOptions(4, 3, 2, 0.02, 1.50), tspCities);
+            //aco.Compute();
+            //acoB.DoOptimization();
 
             // var chromosome = new Chromosome<int>(new []{49,32,45,19,41,8,9,10,43,33,51,11,52,14,13,47,26,27,28,12,25,4,6,15,5,24,48,38,37,40,39,36,35,34,44,46,16,29,50,20,23,30,2,7,42,21,17,3,18,31,22 });
 
