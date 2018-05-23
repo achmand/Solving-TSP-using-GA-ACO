@@ -5,6 +5,9 @@ using EvolutionaryComputation.GeneticAlgorithm.Common;
 
 namespace EvolutionaryComputation.TspProblem
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class TspGeneticAlgorithm : GeneticAlgorithm<int>
     {
         #region properties

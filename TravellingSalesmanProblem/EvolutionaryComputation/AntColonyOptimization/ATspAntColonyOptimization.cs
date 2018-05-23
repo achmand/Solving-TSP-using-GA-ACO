@@ -468,7 +468,7 @@ namespace EvolutionaryComputation.AntColonyOptimization
             {
                 Console.WriteLine("\nBegin Ant Colony Optimization demo\n");
 
-                int numCities = 5;
+                int numCities = 60;
                 int numAnts = 4;
                 int maxTime = 1000;
 
@@ -841,7 +841,7 @@ namespace EvolutionaryComputation.AntColonyOptimization
             {
                 for (int j = i + 1; j <= numCities - 1; j++)
                 {
-                    int d = 1;
+                    int d = Random.Next(1,9);
                     // [1,8]
                     dists[i][j] = d;
                     dists[j][i] = d;

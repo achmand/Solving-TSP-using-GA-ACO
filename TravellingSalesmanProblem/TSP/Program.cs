@@ -4,6 +4,7 @@
 
 using System;
 using System.IO;
+using AntColony;
 using EvolutionaryComputation.AntColonyOptimization;
 using EvolutionaryComputation.AntColonyOptimization.Common;
 using EvolutionaryComputation.GeneticAlgorithm.Common;
@@ -31,10 +32,18 @@ namespace TSP
             const string testingPath = "C:/Users/Nalyd/Desktop/Current Projects/Github/Solving-TSP-using-GA-ACO/TravellingSalesmanProblem/TSP/TSPInstances/berlin52.tsp";
             var tspInstance = new TspInstance(testingPath);
 
-            var acoB = new ATspAntColonyOptimization(new ACOOptions(4, 3, 2, 0.01, 2.00), tspInstance);
-            var aco = new TspAntColonyOptimization(new ACOOptions(4, 3, 2, 0.02, 1.50), tspInstance);
-            aco.Compute();
-            acoB.DoOptimization();
+            //var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Rws, CrossoverType.Cycle, MutationType.SingleSwap, 0.3, 0.5, IterationThreshold.SpecifiedGenerations);
+            //var tspGeneticAlgorithm = new TspGeneticAlgorithm(gaOptions, tspInstance);
+            //tspGeneticAlgorithm.Compute();
+
+           var antColonyProgram = new AntColonyProgram();
+            antColonyProgram.Compute();
+
+            //var acoB = new ATspAntColonyOptimization(new ACOOptions(, 3, 2, 0.01, 2.00), tspInstance);
+            //var aco = new TspAntColonyOptimization(new ACOOptions(10, 3, 2, 0.01, 2.00), tspInstance);
+            //aco.Compute();
+            //acoB.DoOptimization();
+
 
             //Console.WriteLine(tspInstance.ToString());
 

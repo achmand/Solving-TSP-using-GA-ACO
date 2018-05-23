@@ -15,7 +15,7 @@ using System.Diagnostics;
 
 namespace AntColony
 {
-    internal class AntColonyProgram
+    public class AntColonyProgram
     {
         private static Random random = new Random(0);
         // influence of pheromone on direction
@@ -28,7 +28,7 @@ namespace AntColony
         // pheromone increase factor
         private static double Q = 2.0;
 
-        public static void Main(string[] args)
+        public void Compute()
         {
             try
             {
@@ -110,10 +110,6 @@ namespace AntColony
 
         #region public methods 
 
-        public void Compute()
-        {
-
-        }
 
         #endregion public methods
 
@@ -126,7 +122,7 @@ namespace AntColony
             int[][] ants = new int[numAnts][];
             for (int k = 0; k <= numAnts - 1; k++)
             {
-                int start = random.Next(0, numCities);
+                int start = 0; 
                 ants[k] = RandomTrail(start, numCities);
             }
             return ants;
@@ -178,7 +174,7 @@ namespace AntColony
         {
             // total length of a trail
             double result = 0.0;
-            for (int i = 0; i <= trail.Length - 2; i++)
+            for (int i = 0; i < trail.Length - 1; i++)
             {
                 result += Distance(trail[i], trail[i + 1], dists);
             }
@@ -235,7 +231,7 @@ namespace AntColony
             int numCities = pheromones.Length;
             for (int k = 0; k <= ants.Length - 1; k++)
             {
-                int start = random.Next(0, numCities);
+                int start = 0;
                 int[] newTrail = BuildTrail(k, start, pheromones, dists);
                 ants[k] = newTrail;
             }

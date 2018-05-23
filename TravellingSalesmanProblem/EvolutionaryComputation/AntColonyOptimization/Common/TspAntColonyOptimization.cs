@@ -4,6 +4,11 @@ using EvolutionaryComputation.TspProblem;
 
 namespace EvolutionaryComputation.AntColonyOptimization.Common
 {
+    /* NOTES:
+    For more information on ACO algorithms visit
+    https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms#Max-min_ant_system_(MMAS)
+    */
+
     public sealed class TspAntColonyOptimization
     {
         #region properties 
@@ -40,7 +45,7 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
         /// <param name="tspInstance"></param>
         public TspAntColonyOptimization(ACOOptions acoOptions, TspInstance tspInstance)
         {
-            Random = new Random(0);
+            Random = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
 
             AcoOptions = acoOptions;
             _tspInstance = tspInstance;
@@ -59,17 +64,17 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
             // since the cities start from 1 and our pheromone indexes start at 0,
             // we need to make sure that pheromone at index 0, 2 refers to city 1 to city 3 
             InitializePheromones();
-            
+
             // gets the ant with the best path after initialization (after setting random trails)
             var antWithShortestPath = FindAntWithShortestPath();
             var shortestPathDistance = antWithShortestPath.PathDistance;
 
-            while (CurrentIteration < 1000)
+            while (CurrentIteration < 10000)
             {
                 // update ant paths based on pheromones (this is not only based on pheromones it has a probabilistic element to it )
                 UpdateAntPaths();
                 UpdatePheromone();
-                
+
                 var currentAntWithShortestPath = FindAntWithShortestPath();
                 var currentShortestPathDistance = currentAntWithShortestPath.PathDistance;
                 if (currentShortestPathDistance < shortestPathDistance)
@@ -100,7 +105,7 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
 
             // initialize a new path
             var sequentialPath = new int[pathLength];
-            
+
             // initially set a sequential path 
             var index = 0;
             var cities = _tspInstance.CitiesSet;
@@ -204,7 +209,7 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
 
             // hold the sum for all the taueta values 
             var tauetaSumation = 0.0;
-            
+
             // summing all of the tauetas
             for (int i = 0; i < taueta.Length; i++)
             {
@@ -313,7 +318,7 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
         {
             for (int i = 0; i < Pheromones.Length; i++)
             {
-                for (int j = i + 1; j < Pheromones[i].Length ; j++)
+                for (int j = i + 1; j < Pheromones[i].Length; j++)
                 {
                     for (int k = 0; k < Ants.Length; k++)
                     {
@@ -331,7 +336,7 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
                             var q = AcoOptions.Q;
                             increase = (q / pathDistance);
                         }
-                        
+
                         Pheromones[i][j] = decrease + increase;
                         if (Pheromones[i][j] < 0.0001)
                         {

@@ -1,5 +1,10 @@
 ﻿namespace EvolutionaryComputation.AntColonyOptimization.Common
 {
+    /* NOTES:
+        Edge selection: https://wikimedia.org/api/rest_v1/media/math/render/svg/87876b3e1033b60f992d33a181bee4e2d7b229ab
+        Pheromone update: https://wikimedia.org/api/rest_v1/media/math/render/svg/da75f512c94f2b2737112bebbf97539f5f6928c0
+    */
+
     /// <summary>
     /// Options uses in the ant colony optimization. The variable names are named this way to be consistent with the original description of ACO.
     /// </summary>
@@ -11,24 +16,24 @@
         /// The total number of ants used in the ACO. 
         /// </summary>
         public int TotalAnts { get; }
-        
+
         /// <summary>
-        /// Pheromone influence.
+        /// This will affect the importance of pheromone in the optimization process (Edge selection).
         /// </summary>
         public int Alpha { get; }
 
         /// <summary>
-        /// Local node influence. 
+        /// This will affect the importance of desirability/distance in the optimization process (Edge selection). 
         /// </summary>
         public int Beta { get; }
 
         /// <summary>
-        /// Pheromone evaportation coefficient.
+        /// Evaporation Constant: Affects how much pheromone is removed in between steps in the process (Pheromone update).
         /// </summary>
         public double Rho { get; }
 
         /// <summary>
-        /// Pheromone deposit factor. 
+        /// Affects how much pheromone is deposited in between steps in the process (Pheromone update).
         /// </summary>
         public double Q { get; }
 
