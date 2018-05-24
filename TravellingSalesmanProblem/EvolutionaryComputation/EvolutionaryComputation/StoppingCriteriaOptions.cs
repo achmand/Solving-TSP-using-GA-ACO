@@ -13,6 +13,11 @@
         public StoppingCriteriaType StoppingCriteriaType { get; set; }
 
         /// <summary>
+        /// The minutes which have to pass until the algorithm stops. This is only used when <see cref="StoppingCriteriaType"/> is set to TimeBased. 
+        /// </summary>
+        public double MinutesPassed { get; set; }
+
+        /// <summary>
         /// The maximum iterations until the algorithm stops. This is only used when <see cref="StoppingCriteriaType"/> is set to SpecifiedIterations. 
         /// </summary>
         public int MaximumIterations { get; set; }

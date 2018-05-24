@@ -1,5 +1,6 @@
 ﻿using System;
 using EvolutionaryComputation.AntColonyOptimization.Common;
+using EvolutionaryComputation.EvolutionaryComputation;
 using EvolutionaryComputation.GeneticAlgorithm.Common;
 using EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover;
 using EvolutionaryComputation.GeneticAlgorithm.Opertators.Mutation;
@@ -32,9 +33,13 @@ namespace TSP
             const string testingPath = "C:/Users/Nalyd/Desktop/Current Projects/Github/Solving-TSP-using-GA-ACO/TravellingSalesmanProblem/TSP/TSPInstances/berlin52.tsp";
             var tspInstance = new TspInstance(testingPath);
 
-
-
-            var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Rws, CrossoverType.Cycle, MutationType.SingleSwap, 0.3, 0.3);
+            var stoppingCriteriaOptions = new StoppingCriteriaOptions
+            {
+                StoppingCriteriaType = StoppingCriteriaType.TimeBased,
+                MinutesPassed = 1
+            };
+            
+            var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Rws, CrossoverType.Cycle, MutationType.SingleSwap, 0.3, 0.3, stoppingCriteriaOptions);
             var tspGeneticAlgorithm = new TspGeneticAlgorithm(gaOptions, tspInstance);
             tspGeneticAlgorithm.Compute();
 

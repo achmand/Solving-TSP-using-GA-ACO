@@ -162,16 +162,22 @@ namespace EvolutionaryComputation.GeneticAlgorithm
             var stoppingCriteriaType = stoppingCriteriaOptions.StoppingCriteriaType;
             switch (stoppingCriteriaType)
             {
+                case StoppingCriteriaType.TimeBased:
+                    var minutesPassed = stoppingCriteriaOptions.MinutesPassed;
+                    if (minutesPassed <= 0)
+                    {
+                        throw new Exception($"When using {stoppingCriteriaType}, the minutes passed must be larger than 0.");
+                    }
+                    StoppingCriteria = new TimeBaseStoppingCriteria(minutesPassed);
+                    break;
                 case StoppingCriteriaType.SpecifiedIterations:
                     var maximumIterations = stoppingCriteriaOptions.MaximumIterations;
                     if (maximumIterations <= 0)
                     {
-                        throw  new Exception($"When using {stoppingCriteriaType}, the max iterations must be larger than 0.");
+                        throw new Exception($"When using {stoppingCriteriaType}, the max iterations must be larger than 0.");
                     }
-
                     StoppingCriteria = new IterationStoppingCriteria(maximumIterations);
                     break;
-                // TODO -> Implement time based 
             }
 
             /*** setting the stopping criteria for the algorithm ***/

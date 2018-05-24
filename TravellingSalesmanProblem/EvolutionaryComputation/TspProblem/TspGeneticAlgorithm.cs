@@ -49,6 +49,7 @@ namespace EvolutionaryComputation.TspProblem
 
             Console.WriteLine($"Best initial distance: {bestChromomsome.Distance} \n"); // since we are using  SqrMagnitude for faster computation we must convert to Magnitude to show real distance
 
+            // stops when the stopping criteria is met
             while (!StoppingCriteria.IsCriteriaMet())
             {
                 bestIndex = Population.HighestFitnessIndex;

@@ -49,6 +49,7 @@
     <Compile Include="EvolutionaryComputation\IStoppingCriteria.cs" />
     <Compile Include="EvolutionaryComputation\IterationStoppingCriteria.cs" />
     <Compile Include="EvolutionaryComputation\StoppingCriteriaOptions.cs" />
+    <Compile Include="EvolutionaryComputation\TimeBaseStoppingCriteria.cs" />
     <Compile Include="GeneticAlgorithm\Common\Chromosome.cs" />
     <Compile Include="GeneticAlgorithm\Common\EncodingType.cs" />
     <Compile Include="GeneticAlgorithm\Common\GAOptions.cs" />
