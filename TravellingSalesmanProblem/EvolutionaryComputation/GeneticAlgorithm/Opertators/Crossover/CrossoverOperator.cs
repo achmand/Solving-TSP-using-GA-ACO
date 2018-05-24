@@ -4,7 +4,8 @@ using EvolutionaryComputation.GeneticAlgorithm.Common;
 namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
 {
     /// <summary>
-    /// Base class for the crossover operators used in GA. Crossover/Reproduction is the stage in a GA were the programming of a chromosome is varied from one generation to the next.
+    /// Base class for the crossover operators used in GA. 
+    /// Crossover/Reproduction is the stage in a GA were the programming of a chromosome is varied from one generation to the next.
     /// </summary>
     /// <typeparam name="T">The type of the <see cref="Chromosome{T}"/> used in the crossover process.</typeparam>
     public abstract class CrossoverOperator<T>

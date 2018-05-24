@@ -1,4 +1,5 @@
 ﻿using System;
+using EvolutionaryComputation.EvolutionaryComputation;
 using EvolutionaryComputation.GeneticAlgorithm.Common;
 using EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover;
 using EvolutionaryComputation.GeneticAlgorithm.Opertators.Mutation;
@@ -6,9 +7,14 @@ using EvolutionaryComputation.GeneticAlgorithm.Opertators.Selection;
 
 namespace EvolutionaryComputation.GeneticAlgorithm
 {
-    public class GeneticAlgorithm<T>
+    public class GeneticAlgorithm<T> : EvolutionaryComputationAlgorithm
     {
         #region properties
+
+        /// <summary>
+        /// The evolutionary computation type for this specific concrete implemetation/algorithm (Genetic Algorithm).
+        /// </summary>
+        public override EvolutionaryComputationType EvolutionaryComputationType => EvolutionaryComputationType.GeneticAlgorithm;
 
         protected Random Random { get; private set; }
 
@@ -46,6 +52,11 @@ namespace EvolutionaryComputation.GeneticAlgorithm
 
         protected int NumberOfElite;
 
+        /// <summary>
+        /// The stopping criteria used to stop the iteration, once a condition is met. 
+        /// </summary>
+        protected IStoppingCriteria StoppingCriteria;
+
         #endregion properties 
 
         #region constructor/s
@@ -73,7 +84,6 @@ namespace EvolutionaryComputation.GeneticAlgorithm
 
         #region public methods 
 
-
         #endregion public methods 
 
         #region private methods
@@ -85,18 +95,18 @@ namespace EvolutionaryComputation.GeneticAlgorithm
         {
             var populationSize = GaOptions.PopulationSize;
             Population = new Population<T>(populationSize);
-            Random = new Random((int)DateTime.Now.Ticks & 0x0000FFFF); 
+            Random = new Random((int)DateTime.Now.Ticks & 0x0000FFFF); // https://msdn.microsoft.com/en-us/library/ctssatww(v=vs.110).aspx
             Generation = 0;
 
             var elite = GaOptions.Elitism;
             NumberOfElite = (int)(populationSize * elite);
-            SetOperators();
+            ApplyOptions();
         }
 
         /// <summary>
-        /// Sets the operators used in the GA.
+        /// Sets the operators and other configuration used in the GA.
         /// </summary>
-        private void SetOperators()
+        private void ApplyOptions()
         {
             /*** setting the selection operator to the specified type ***/
             var selectionType = GaOptions.SelectionType;
@@ -146,8 +156,29 @@ namespace EvolutionaryComputation.GeneticAlgorithm
                     break;
             }
             /*** setting the mutation operator to the specified type ***/
+
+            /*** setting the stopping criteria for the algorithm ***/
+            var stoppingCriteriaOptions = GaOptions.StoppingCriteriaOptions;
+            var stoppingCriteriaType = stoppingCriteriaOptions.StoppingCriteriaType;
+            switch (stoppingCriteriaType)
+            {
+                case StoppingCriteriaType.SpecifiedIterations:
+                    var maximumIterations = stoppingCriteriaOptions.MaximumIterations;
+                    if (maximumIterations <= 0)
+                    {
+                        throw  new Exception($"When using {stoppingCriteriaType}, the max iterations must be larger than 0.");
+                    }
+
+                    StoppingCriteria = new IterationStoppingCriteria(maximumIterations);
+                    break;
+                // TODO -> Implement time based 
+            }
+
+            /*** setting the stopping criteria for the algorithm ***/
         }
 
         #endregion private methods
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover;
+﻿using EvolutionaryComputation.EvolutionaryComputation;
+using EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover;
 using EvolutionaryComputation.GeneticAlgorithm.Opertators.Mutation;
 using EvolutionaryComputation.GeneticAlgorithm.Opertators.Selection;
 
@@ -48,9 +49,10 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
         public double Elitism { get; }
 
         /// <summary>
-        /// The threshold which stops the GA from evolving.
+        /// The stopping criteria options. This is needed as we need to specify when to stop evolving in a GA.
+        /// If we do not specify a stopping critieria the algorithm goes forever. 
         /// </summary>
-        public IterationThreshold IterationThreshold { get; set; } // TODO -> Class should be used here 
+        public StoppingCriteriaOptions StoppingCriteriaOptions { get; set; }
 
         #endregion properties
 
@@ -69,7 +71,12 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
             MutationRate = 0.3f;
             Elitism = 0;
 
-            IterationThreshold = IterationThreshold.SpecifiedGenerations;
+            // if not specified the GA will use an iteration based stopping criteria, set to a maximum iteration of 1000. 
+            StoppingCriteriaOptions = new StoppingCriteriaOptions
+            {
+                StoppingCriteriaType = StoppingCriteriaType.SpecifiedIterations,
+                MaximumIterations = 1000
+            };
         }
 
         /// <summary>
@@ -82,8 +89,10 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
         /// <param name="mutationType">The mutation type.</param>
         /// <param name="mutationRate">The mutation rate.</param>
         /// <param name="elitisim">The elistism rate.</param>
-        /// <param name="iterationThreshold">The iteration threshold which stops the GA.</param>
-        public GAOptions(int populationSize, EncodingType encodingType, SelectionType selectionType, CrossoverType crossoverType, MutationType mutationType, double mutationRate, double elitisim, IterationThreshold iterationThreshold)
+        /// <param name="stoppingCriteriaOptions">The stopping critieria options used to stop the algorithm from executing forever. 
+        /// Optional if not specified, it will use the default which is set to an iteration threshold with maximum of 1000 iterations.</param>
+        public GAOptions(int populationSize, EncodingType encodingType, SelectionType selectionType, CrossoverType crossoverType, MutationType mutationType,
+            double mutationRate, double elitisim, StoppingCriteriaOptions stoppingCriteriaOptions = null)
         {
             PopulationSize = populationSize;
             EncodingType = encodingType;
@@ -93,7 +102,18 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
             MutationRate = mutationRate;
             Elitism = elitisim;
 
-            IterationThreshold = iterationThreshold;
+            if (stoppingCriteriaOptions == null)
+            {
+                // if not specified the GA will use an iteration based stopping criteria, set to a maximum iteration of 1000. 
+                StoppingCriteriaOptions = new StoppingCriteriaOptions
+                {
+                    StoppingCriteriaType = StoppingCriteriaType.SpecifiedIterations,
+                    MaximumIterations = 1000
+                };
+                return;
+            }
+
+            StoppingCriteriaOptions = stoppingCriteriaOptions;
         }
 
         #endregion constructor/s 

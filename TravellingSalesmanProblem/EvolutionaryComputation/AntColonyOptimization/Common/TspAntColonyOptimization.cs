@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using EvolutionaryComputation.EvolutionaryComputation;
 using EvolutionaryComputation.TspProblem;
 
 namespace EvolutionaryComputation.AntColonyOptimization.Common
@@ -9,9 +10,14 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
     https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms#Max-min_ant_system_(MMAS)
     */
 
-    public sealed class TspAntColonyOptimization
+    public sealed class TspAntColonyOptimization : EvolutionaryComputationAlgorithm
     {
         #region properties 
+
+        /// <summary>
+        /// The evolutionary computation type for this specific concrete implemetation/algorithm (Ant Colony Optimization).
+        /// </summary>
+        public override EvolutionaryComputationType EvolutionaryComputationType => EvolutionaryComputationType.AntColonyOptimization;
 
         private Random Random { get; set; }
 
@@ -393,5 +399,6 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
         }
 
         #endregion private methods 
+
     }
 }

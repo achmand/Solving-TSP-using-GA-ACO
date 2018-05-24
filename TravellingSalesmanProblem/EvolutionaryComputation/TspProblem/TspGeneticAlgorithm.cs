@@ -2,7 +2,6 @@
 using System.Linq;
 using EvolutionaryComputation.GeneticAlgorithm;
 using EvolutionaryComputation.GeneticAlgorithm.Common;
-using EvolutionaryComputation.Utilities;
 
 namespace EvolutionaryComputation.TspProblem
 {
@@ -50,7 +49,7 @@ namespace EvolutionaryComputation.TspProblem
 
             Console.WriteLine($"Best initial distance: {bestChromomsome.Distance} \n"); // since we are using  SqrMagnitude for faster computation we must convert to Magnitude to show real distance
 
-            while (Generation < 1000)
+            while (!StoppingCriteria.IsCriteriaMet())
             {
                 bestIndex = Population.HighestFitnessIndex;
 
