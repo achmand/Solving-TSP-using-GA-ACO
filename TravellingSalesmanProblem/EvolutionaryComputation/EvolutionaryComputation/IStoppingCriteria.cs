@@ -8,6 +8,8 @@
 
         bool IsCriteriaMet();
 
+        string CriteriaToString();
+
         #endregion method signatures 
     }
 }

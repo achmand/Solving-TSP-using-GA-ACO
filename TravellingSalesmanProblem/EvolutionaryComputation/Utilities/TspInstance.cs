@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using EvolutionaryComputation.Utilities;
 
-namespace EvolutionaryComputation.TspProblem
+namespace EvolutionaryComputation.Utilities
 {
     /* NOTES:
     - TSP Instances taken from

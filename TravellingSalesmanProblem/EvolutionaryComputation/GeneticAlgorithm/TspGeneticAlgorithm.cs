@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using EvolutionaryComputation.GeneticAlgorithm;
 using EvolutionaryComputation.GeneticAlgorithm.Common;
+using EvolutionaryComputation.Utilities;
 
-namespace EvolutionaryComputation.TspProblem
+namespace EvolutionaryComputation.GeneticAlgorithm
 {
     /// <summary>
     /// 
@@ -36,18 +36,23 @@ namespace EvolutionaryComputation.TspProblem
         #region public methods 
 
         /// <summary>
-        /// Computes the TSP instance using Genetic Algorithm. 
+        /// Processes the GA to search for an optimal TSP solution until the stopping criteria is met. 
         /// </summary>
         public void Compute()
         {
-            // Would be nice to clear these console writelines stuff and use events, so I could display them from Program.cs 
+            Console.ForegroundColor = ConsoleColor.White;
 
             Console.WriteLine("\nStart TSP Genetic Algorithm\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\nOptions\n*********\nPopulation: {GaOptions.PopulationSize}\nEncoding_Type: {GaOptions.EncodingType}\nSelection_Operator: {GaOptions.SelectionType}\nCrossover_Operator: {GaOptions.CrossoverType}\nMutation_Operator: {GaOptions.MutationType}" +
+                              $"\nMutation_Rate: {GaOptions.MutationRate}\nElite_Rate: {GaOptions.Elitism}\n{StoppingCriteria.CriteriaToString()}\n");
+            Console.ForegroundColor = ConsoleColor.White;
+
             CreateInitialPopulation();
             var bestIndex = Population.HighestFitnessIndex;
             var bestChromomsome = Population.Chromosomes[bestIndex]; 
 
-            Console.WriteLine($"Best initial distance: {bestChromomsome.Distance} \n"); // since we are using  SqrMagnitude for faster computation we must convert to Magnitude to show real distance
+            Console.WriteLine($"Best initial distance: {bestChromomsome.Distance} \n");
 
             // stops when the stopping criteria is met
             while (!StoppingCriteria.IsCriteriaMet())
@@ -63,13 +68,12 @@ namespace EvolutionaryComputation.TspProblem
 
                 CreateNextGeneration();
             }
-
-            Console.WriteLine($"\nDistance for the most optimal tour: {bestChromomsome.Distance}");
-
+            
             // since we dont have a reference to the starting and ending city [1] in the Genome we add these so we could display them,
             // as they are taken into consideration when calculating fitness and we always start and end at City with ID 1
+            Console.WriteLine($"\nDistance for the most optimal tour: {bestChromomsome.Distance}");
             Console.WriteLine($"1,{string.Join(",", bestChromomsome.GetGenome())},1");
-            Console.WriteLine("\nEnd TSP Genetic Algorithm Finished");
+            Console.WriteLine("\nEnd TSP Genetic Algorithm - Finished");
         }
 
         #endregion public methods 

@@ -53,6 +53,15 @@
             return isCriteriaMet;
         }
 
+        /// <summary>
+        /// Returns the stopping criteria information as a string.
+        /// </summary>
+        /// <returns>Criteria information.</returns>
+        public string CriteriaToString()
+        {
+            return $"Stopping Criteria Type: {StoppingCriteria}, Maximum Iteration: {MaxIteration}";
+        }
+
         #endregion
     }
 }

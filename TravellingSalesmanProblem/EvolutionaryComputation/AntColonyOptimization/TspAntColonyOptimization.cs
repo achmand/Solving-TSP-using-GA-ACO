@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Linq;
+using EvolutionaryComputation.AntColonyOptimization.Common;
 using EvolutionaryComputation.EvolutionaryComputation;
-using EvolutionaryComputation.TspProblem;
+using EvolutionaryComputation.Utilities;
 
-namespace EvolutionaryComputation.AntColonyOptimization.Common
+namespace EvolutionaryComputation.AntColonyOptimization
 {
     /* NOTES:
     For more information on ACO algorithms visit
     https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms#Max-min_ant_system_(MMAS)
     */
 
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class TspAntColonyOptimization : EvolutionaryComputationAlgorithm
     {
         #region properties 
@@ -38,7 +41,7 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
         /// <summary>
         /// The stopping criteria used to stop the iteration, once a condition is met. 
         /// </summary>
-        private IStoppingCriteria StoppingCriteria;
+        private IStoppingCriteria _stoppingCriteria;
 
         /// <summary>
         /// The TSP instance which contains the cities and information about the tsp problem . 
@@ -68,12 +71,20 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
 
         #region public methods 
 
+        /// <summary>
+        /// Processes the ACO to search for an optimal TSP solution until the stopping criteria is met. 
+        /// </summary>
         public void Compute()
         {
-            // Would be nice to clear these console writelines stuff and use events, so I could display them from Program.cs 
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine("\nStart TSP Ant Colony Optimization Algorithm");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\nOptions\n*********\nAnt_Population: {AcoOptions.TotalAnts}\nAlpha: {AcoOptions.Alpha}\nBeta: {AcoOptions.Beta}\nRho: {AcoOptions.Rho}\nQ: {AcoOptions.Q}\n" +
+                              $"{_stoppingCriteria.CriteriaToString()}\n");
+            Console.ForegroundColor = ConsoleColor.White;
 
             // initializes the ant colony 
-            Console.WriteLine("\nStart Ant Colony Optimization Algorithm\n");
             InitializeAnts();
 
             // initializes the pheromone information which is stored in a jagged array
@@ -83,10 +94,13 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
 
             // gets the ant with the best path after initialization (after setting random trails)
             var antWithShortestPath = FindAntWithShortestPath();
+            var shortestPath = antWithShortestPath.Path;
             var shortestPathDistance = antWithShortestPath.PathDistance;
 
+            Console.WriteLine($"Best initial distance: {shortestPathDistance} \n");
+
             // stops when the stopping criteria is met
-            while (!StoppingCriteria.IsCriteriaMet())
+            while (!_stoppingCriteria.IsCriteriaMet())
             {
                 // update ant paths based on pheromones (this is not only based on pheromones it has a probabilistic element to it )
                 UpdateAntPaths();
@@ -97,15 +111,16 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
                 if (currentShortestPathDistance < shortestPathDistance)
                 {
                     shortestPathDistance = currentShortestPathDistance;
-                    antWithShortestPath = currentAntWithShortestPath;
+                    shortestPath = currentAntWithShortestPath.Path;
                     Console.WriteLine($"A new shorter distance was found at iteration {CurrentIteration} with length {shortestPathDistance}");
                 }
 
                 CurrentIteration++;
             }
 
-            Console.WriteLine($"Best path found is {string.Join(",", antWithShortestPath.Path)}, with a distance of {shortestPathDistance}");
-            Console.WriteLine($"Best path found is {string.Join(",", antWithShortestPath.Path.OrderBy(c => c))}, with a distance of {shortestPathDistance}");
+            Console.WriteLine($"\nDistance for the most optimal tour: {shortestPathDistance}");
+            Console.WriteLine($"{string.Join(",", shortestPath)}");
+            Console.WriteLine("\nEnd Ant Colony Optimization Algorithm - Finished");
         }
 
         #endregion public methods 
@@ -425,7 +440,7 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
                     {
                         throw new Exception($"When using {stoppingCriteriaType}, the minutes passed must be larger than 0.");
                     }
-                    StoppingCriteria = new TimeBaseStoppingCriteria(minutesPassed);
+                    _stoppingCriteria = new TimeBaseStoppingCriteria(minutesPassed);
                     break;
                 case StoppingCriteriaType.SpecifiedIterations:
                     var maximumIterations = stoppingCriteriaOptions.MaximumIterations;
@@ -433,7 +448,7 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
                     {
                         throw new Exception($"When using {stoppingCriteriaType}, the max iterations must be larger than 0.");
                     }
-                    StoppingCriteria = new IterationStoppingCriteria(maximumIterations);
+                    _stoppingCriteria = new IterationStoppingCriteria(maximumIterations);
                     break;
             }
 

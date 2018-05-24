@@ -40,6 +40,8 @@ namespace EvolutionaryComputation.EvolutionaryComputation
 
         #endregion constructor/s 
 
+        #region public methods  
+
         /// <summary>
         /// Checks if criteria threshold is reach or not.
         /// </summary>
@@ -57,5 +59,16 @@ namespace EvolutionaryComputation.EvolutionaryComputation
 
             return isCriteriaMet;
         }
+
+        /// <summary>
+        /// Returns the stopping criteria information as a string.
+        /// </summary>
+        /// <returns>Criteria information.</returns>
+        public string CriteriaToString()
+        {
+            return $"Stopping Criteria Type: {StoppingCriteria}, Minutes to pass: {MinutesPassed}";
+        }
+
+        #endregion public methods 
     }
 }
