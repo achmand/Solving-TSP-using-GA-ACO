@@ -36,6 +36,11 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
         private int CurrentIteration { get; set; }
 
         /// <summary>
+        /// The stopping criteria used to stop the iteration, once a condition is met. 
+        /// </summary>
+        private IStoppingCriteria StoppingCriteria;
+
+        /// <summary>
         /// The TSP instance which contains the cities and information about the tsp problem . 
         /// </summary>
         private readonly TspInstance _tspInstance;
@@ -51,10 +56,12 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
         /// <param name="tspInstance"></param>
         public TspAntColonyOptimization(ACOOptions acoOptions, TspInstance tspInstance)
         {
-            Random = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+            Random = new Random((int)DateTime.Now.Ticks & 0x0000FFFF); // https://msdn.microsoft.com/en-us/library/ctssatww(v=vs.110).aspx
 
             AcoOptions = acoOptions;
             _tspInstance = tspInstance;
+
+            ApplyOptions();
         }
 
         #endregion constructor/s
@@ -63,7 +70,10 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
 
         public void Compute()
         {
+            // Would be nice to clear these console writelines stuff and use events, so I could display them from Program.cs 
+
             // initializes the ant colony 
+            Console.WriteLine("\nStart Ant Colony Optimization Algorithm\n");
             InitializeAnts();
 
             // initializes the pheromone information which is stored in a jagged array
@@ -75,7 +85,8 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
             var antWithShortestPath = FindAntWithShortestPath();
             var shortestPathDistance = antWithShortestPath.PathDistance;
 
-            while (CurrentIteration < 1000)
+            // stops when the stopping criteria is met
+            while (!StoppingCriteria.IsCriteriaMet())
             {
                 // update ant paths based on pheromones (this is not only based on pheromones it has a probabilistic element to it )
                 UpdateAntPaths();
@@ -398,7 +409,37 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
             return distance.Magnitude;
         }
 
-        #endregion private methods 
+        /// <summary>
+        /// Sets the options and other configuration used in the ACO.
+        /// </summary>
+        private void ApplyOptions()
+        {
+            /*** setting the stopping criteria for the algorithm ***/
+            var stoppingCriteriaOptions = AcoOptions.StoppingCriteriaOptions;
+            var stoppingCriteriaType = stoppingCriteriaOptions.StoppingCriteriaType;
+            switch (stoppingCriteriaType)
+            {
+                case StoppingCriteriaType.TimeBased:
+                    var minutesPassed = stoppingCriteriaOptions.MinutesPassed;
+                    if (minutesPassed <= 0)
+                    {
+                        throw new Exception($"When using {stoppingCriteriaType}, the minutes passed must be larger than 0.");
+                    }
+                    StoppingCriteria = new TimeBaseStoppingCriteria(minutesPassed);
+                    break;
+                case StoppingCriteriaType.SpecifiedIterations:
+                    var maximumIterations = stoppingCriteriaOptions.MaximumIterations;
+                    if (maximumIterations <= 0)
+                    {
+                        throw new Exception($"When using {stoppingCriteriaType}, the max iterations must be larger than 0.");
+                    }
+                    StoppingCriteria = new IterationStoppingCriteria(maximumIterations);
+                    break;
+            }
 
+            /*** setting the stopping criteria for the algorithm ***/
+        }
+
+        #endregion private methods 
     }
 }

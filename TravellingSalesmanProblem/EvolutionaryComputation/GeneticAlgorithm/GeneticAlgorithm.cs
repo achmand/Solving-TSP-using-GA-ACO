@@ -104,7 +104,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm
         }
 
         /// <summary>
-        /// Sets the operators and other configuration used in the GA.
+        /// Sets the options and other configuration used in the GA.
         /// </summary>
         private void ApplyOptions()
         {
@@ -184,7 +184,5 @@ namespace EvolutionaryComputation.GeneticAlgorithm
         }
 
         #endregion private methods
-
-
     }
 }

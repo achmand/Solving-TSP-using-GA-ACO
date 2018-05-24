@@ -1,4 +1,6 @@
-﻿namespace EvolutionaryComputation.AntColonyOptimization.Common
+﻿using EvolutionaryComputation.EvolutionaryComputation;
+
+namespace EvolutionaryComputation.AntColonyOptimization.Common
 {
     /* NOTES:
         Edge selection: https://wikimedia.org/api/rest_v1/media/math/render/svg/87876b3e1033b60f992d33a181bee4e2d7b229ab
@@ -37,6 +39,12 @@
         /// </summary>
         public double Q { get; }
 
+        /// <summary>
+        /// The stopping criteria options. This is needed as we need to specify when to stop evolving in a GA.
+        /// If we do not specify a stopping critieria the algorithm goes forever. 
+        /// </summary>
+        public StoppingCriteriaOptions StoppingCriteriaOptions { get; set; }
+
         #endregion properties 
 
         #region constructor/s 
@@ -46,11 +54,11 @@
         /// </summary>
         public ACOOptions()
         {
-            TotalAnts = 4; 
+            TotalAnts = 4;
             Alpha = 3;
             Beta = 2;
             Rho = .01;
-            Q = 2.0; 
+            Q = 2.0;
         }
 
         /// <summary>
@@ -61,13 +69,28 @@
         /// <param name="beta">Local node influence.</param>
         /// <param name="rho">Pheromone evaportation coefficient.</param>
         /// <param name="q">Pheromone deposit factor.</param>
-        public ACOOptions(int totalAnts,int alpha, int beta, double rho, double q)
+        /// <param name="stoppingCriteriaOptions">The stopping critieria options used to stop the algorithm from executing forever. 
+        /// Optional if not specified, it will use the default which is set to an iteration threshold with maximum of 1000 iterations.</param>
+        public ACOOptions(int totalAnts, int alpha, int beta, double rho, double q, StoppingCriteriaOptions stoppingCriteriaOptions = null)
         {
             TotalAnts = totalAnts;
             Alpha = alpha;
             Beta = beta;
             Rho = rho;
             Q = q;
+
+            if (stoppingCriteriaOptions == null)
+            {
+                // if not specified the GA will use an iteration based stopping criteria, set to a maximum iteration of 1000. 
+                StoppingCriteriaOptions = new StoppingCriteriaOptions
+                {
+                    StoppingCriteriaType = StoppingCriteriaType.SpecifiedIterations,
+                    MaximumIterations = 1000
+                };
+                return;
+            }
+
+            StoppingCriteriaOptions = stoppingCriteriaOptions;
         }
 
         #endregion constructor/s

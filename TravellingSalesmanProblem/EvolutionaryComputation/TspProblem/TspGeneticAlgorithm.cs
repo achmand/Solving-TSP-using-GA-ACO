@@ -40,7 +40,7 @@ namespace EvolutionaryComputation.TspProblem
         /// </summary>
         public void Compute()
         {
-            // Would be nice to clear these console writelines stuff and use events, so I could display them from Program.cs
+            // Would be nice to clear these console writelines stuff and use events, so I could display them from Program.cs 
 
             Console.WriteLine("\nStart TSP Genetic Algorithm\n");
             CreateInitialPopulation();

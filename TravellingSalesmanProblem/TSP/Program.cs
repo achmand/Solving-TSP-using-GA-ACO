@@ -38,14 +38,15 @@ namespace TSP
                 StoppingCriteriaType = StoppingCriteriaType.TimeBased,
                 MinutesPassed = 1
             };
-            
-            var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Rws, CrossoverType.Cycle, MutationType.SingleSwap, 0.3, 0.3, stoppingCriteriaOptions);
-            var tspGeneticAlgorithm = new TspGeneticAlgorithm(gaOptions, tspInstance);
-            tspGeneticAlgorithm.Compute();
 
-            //var acoOptions = new ACOOptions(37, 3, 2, 0.01, 2.00);
-            //var aco = new TspAntColonyOptimization(acoOptions, tspInstance);
-            //aco.Compute();
+            //var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Rws, CrossoverType.Cycle, MutationType.SingleSwap, 0.3, 0.3, stoppingCriteriaOptions);
+            //var tspGeneticAlgorithm = new TspGeneticAlgorithm(gaOptions, tspInstance);
+            //tspGeneticAlgorithm.Compute();
+
+            var acoOptions = new ACOOptions(37, 3, 2, 0.01, 2.00, stoppingCriteriaOptions);
+            var aco = new TspAntColonyOptimization(acoOptions, tspInstance);
+            aco.Compute();
+
             Console.ReadLine();
         }
     }
