@@ -21,5 +21,9 @@
         /// Single swap mutation operator. 
         /// </summary>
         SingleSwap, 
+        /// <summary>
+        /// Inversion mutation operator.
+        /// </summary>
+        InversionMutation,  
     }
 }

@@ -18,10 +18,19 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
         /// </summary>
         public Chromosome<T>[] Chromosomes { get; private set; }
 
+        /// <summary>
+        /// Highest fitness found in the population.
+        /// </summary>
         public double HighestFitness { get; private set; }
 
+        /// <summary>
+        /// Chromsome index with the highest fit.
+        /// </summary>
         public int HighestFitnessIndex { get; private set; }
 
+        /// <summary>
+        /// Total population fitness.
+        /// </summary>
         public double TotalFitness { get; private set; }
 
         public Chromosome<T>[] NextGenChromosomes { get; }
@@ -84,47 +93,9 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
             }
         }
 
-        //public void AddChromosome(int index, Chromosome<T> chromosome, bool nextGen = false)
-        //{
-        //    if (index >= PopulationSize || index < 0)
-        //    {
-        //        throw new Exception("Index does not exist.");
-        //    }
-
-        //    var fitness = chromosome.Fitness;
-        //    var currentHighestFitness = nextGen ? NextGenHighestFitness : HighestFitness;
-        //    var registerNewHigh = currentHighestFitness < fitness;
-
-        //    if (nextGen)
-        //    {
-        //        NextGenChromosomes[index] = chromosome;
-        //        NextGenTotalFitness += fitness;
-        //        if (!registerNewHigh)
-        //        {
-        //            return;
-        //        }
-
-        //        NextGenHighestFitness = fitness;
-        //        NextGenHighestFitnessIndex = index;
-        //    }
-        //    else
-        //    {
-        //        Chromosomes[index] = chromosome;
-        //        TotalFitness += fitness;
-        //        if (!registerNewHigh)
-        //        {
-        //            return;
-        //        }
-
-        //        HighestFitness = fitness;
-        //        HighestFitnessIndex = index;
-        //    }
-        //}
 
         public void SetNextGeneration()
         {
-            // TODO -> What if we are using elitisim ?
-
             HighestFitness = NextGenHighestFitness;
             HighestFitnessIndex = NextGenHighestFitnessIndex;
             TotalFitness = NextGenTotalFitness;

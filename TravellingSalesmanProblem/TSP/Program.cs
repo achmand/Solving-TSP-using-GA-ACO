@@ -40,10 +40,9 @@ namespace TSP
                 MaximumIterations = 500
             };
 
-            var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Rws, CrossoverType.Cycle, MutationType.SingleSwap, 0.3, 0.3, stoppingCriteriaOptions);
+            var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Rws, CrossoverType.Cycle, MutationType.InversionMutation, 0.1, 0.3, stoppingCriteriaOptions);
             var tspGeneticAlgorithm = new TspGeneticAlgorithm(gaOptions, tspInstance);
             tspGeneticAlgorithm.Compute();
-
 
             //var acoOptions = new ACOOptions(4, 3, 2, 0.01, 2.00, stoppingCriteriaOptions);
             //var aco = new TspAntColonyOptimization(acoOptions, tspInstance);
@@ -120,7 +119,7 @@ namespace TSP
                             var mutationRate = options.MutationRate;
                             var elitisimRate = options.ElitismRate;
 
-                            var genticAlgorithmOptions = new GAOptions(population, EncodingType.Permutation, selectionType, crossoverType, mutationType, mutationRate, 
+                            var genticAlgorithmOptions = new GAOptions(population, EncodingType.Permutation, selectionType, crossoverType, mutationType, mutationRate,
                                 elitisimRate, stoppingCriteriaOptions);
                             var tspGeneticAlgorithm = new TspGeneticAlgorithm(genticAlgorithmOptions, tspInstance);
 

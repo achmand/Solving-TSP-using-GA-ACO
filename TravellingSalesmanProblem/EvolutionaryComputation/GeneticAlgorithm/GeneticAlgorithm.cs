@@ -154,6 +154,9 @@ namespace EvolutionaryComputation.GeneticAlgorithm
                 case MutationType.SingleSwap:
                     MutationOperator = new SingleSwapMutation<T>(Random);
                     break;
+                case MutationType.InversionMutation:
+                    MutationOperator = new InversionMutation<T>(Random, GaOptions.MutationRate);
+                    break;
             }
             /*** setting the mutation operator to the specified type ***/
 

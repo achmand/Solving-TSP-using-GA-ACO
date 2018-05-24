@@ -94,13 +94,13 @@ namespace TSP
         /// <summary>
         /// (GA Options) The mutation operator type. 
         /// </summary>
-        [Option('M', "mutationop", Required = false, HelpText = "(GA) The mutation operator type. Options are SingleSwap.")]
+        [Option('M', "mutationop", Required = false, HelpText = "(GA) The mutation operator type. Options are SingleSwap, InversionMutation.")]
         public string MutationOperator { get; set; }
 
         /// <summary>
         /// (GA Options) The mutation rate. 
         /// </summary>
-        [Option('O', "mutationrate", Required = false, HelpText = "(GA) The mutation rate. Not all mutation operators use the mutation rate.")]
+        [Option('O', "mutationrate", Required = false, HelpText = "(GA) The mutation rate. Not all mutation operators use the mutation rate. Mutation Operators which use mutation rate are [InversionMutation,].")]
         public double MutationRate { get; set; }
 
         /// <summary>

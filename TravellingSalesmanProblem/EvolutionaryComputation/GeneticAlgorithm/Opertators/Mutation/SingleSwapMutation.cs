@@ -6,13 +6,14 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Mutation
     /* NOTES:
     - For more information on single swap mutation visit:
     http://www.rubicite.com/Tutorials/GeneticAlgorithms/MutationOperators/SingleSwapMutationOperator.aspx
+    http://mnemstudio.org/genetic-algorithms-mutation.htm
     */
 
     /// <summary>
     /// A concrete implementation of a Single Swap Mutation operator. This class inherits from <see cref="MutationOperator{T}"/>.
     /// Selects two positions at random from the genome of the <see cref="Chromosome{T}"></see> a interchange it's values. 
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of <see cref="Chromosome{T}"/> used in the population.</typeparam>
     public sealed class SingleSwapMutation<T> : MutationOperator<T>
     {
         #region properties 
@@ -37,7 +38,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Mutation
         #region private methods
 
         /// <summary>
-        /// Mutates a chromosome to maintain genetic diversity in a population.
+        /// Mutates a chromosome using SingleSwap to maintain genetic diversity in a population.
         /// </summary>
         /// <param name="childChromosome">The child <see cref="Chromosome{T}"/> which will be mutated to maintain diversity.</param>
         protected override void _Mutate(Chromosome<T> childChromosome)

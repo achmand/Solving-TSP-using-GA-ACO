@@ -6,7 +6,7 @@ using EvolutionaryComputation.Utilities;
 namespace EvolutionaryComputation.GeneticAlgorithm
 {
     /// <summary>
-    /// 
+    /// An implementation of Genetic Algorithm used for the TSP problem. This class inherits from <see cref="GeneticAlgorithm{T}"/>.
     /// </summary>
     public sealed class TspGeneticAlgorithm : GeneticAlgorithm<int>
     {
@@ -42,7 +42,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm
         {
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.WriteLine("\nStart TSP Genetic Algorithm\n");
+            Console.WriteLine("\nStart TSP Genetic Algorithm");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\nOptions\n*********\nPopulation: {GaOptions.PopulationSize}\nEncoding_Type: {GaOptions.EncodingType}\nSelection_Operator: {GaOptions.SelectionType}\nCrossover_Operator: {GaOptions.CrossoverType}\nMutation_Operator: {GaOptions.MutationType}" +
                               $"\nMutation_Rate: {GaOptions.MutationRate}\nElite_Rate: {GaOptions.Elitism}\n{StoppingCriteria.CriteriaToString()}\n");
@@ -50,7 +50,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm
 
             CreateInitialPopulation();
             var bestIndex = Population.HighestFitnessIndex;
-            var bestChromomsome = Population.Chromosomes[bestIndex]; 
+            var bestChromomsome = Population.Chromosomes[bestIndex];
 
             Console.WriteLine($"Best initial distance: {bestChromomsome.Distance} \n");
 
@@ -68,7 +68,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm
 
                 CreateNextGeneration();
             }
-            
+
             // since we dont have a reference to the starting and ending city [1] in the Genome we add these so we could display them,
             // as they are taken into consideration when calculating fitness and we always start and end at City with ID 1
             Console.WriteLine($"\nDistance for the most optimal tour: {bestChromomsome.Distance}");
