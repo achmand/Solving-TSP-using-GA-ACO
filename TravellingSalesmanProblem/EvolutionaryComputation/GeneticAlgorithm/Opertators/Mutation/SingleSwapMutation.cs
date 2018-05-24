@@ -8,6 +8,10 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Mutation
     http://www.rubicite.com/Tutorials/GeneticAlgorithms/MutationOperators/SingleSwapMutationOperator.aspx
     */
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public sealed class SingleSwapMutation<T> : MutationOperator<T>
     {
         #region properties 
@@ -38,10 +42,6 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Mutation
                 indexA = Random.Next(0, genomeLength);
                 indexB = Random.Next(0, genomeLength);
             }
-
-            //var gene = childChromosome.Genome[indexA];
-            //childChromosome.Genome[indexA] = childChromosome.Genome[indexB];
-            //childChromosome.Genome[indexB] = gene;
 
             var gene = childChromosome.GetGene(indexA);
             childChromosome.InsertGene(indexA, childChromosome.GetGene(indexB));

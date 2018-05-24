@@ -56,7 +56,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
             var motherChromosomeCopy = new T[genomeLength];
             //var motherGenome = motherChromosome.Genome;
             var motherGenome = motherChromosome.GetGenome();
-            motherGenome.CopyTo(motherChromosomeCopy, 0); // TODO -> Is this really needed can I do something with modulo instead of having another array 
+            motherGenome.CopyTo(motherChromosomeCopy, 0); // TODO -> Is this really needed ?? can I do something with modulo instead of having another array 
 
             // shift the mother array to the right (number of empty slots on the right)
             for (int i = 0; i < genomeLength; i++)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using EvolutionaryComputation.TspProblem;
 
 // Demo of Ant Colony Optimization (ACO) solving a Traveling Salesman Problem (TSP).
 // There are many variations of ACO; this is just one approach.
@@ -28,15 +29,15 @@ namespace AntColony
         // pheromone increase factor
         private static double Q = 2.0;
 
-        public void Compute()
+        public void Compute(TspInstance tspInstance)
         {
             try
             {
                 Console.WriteLine("\nBegin Ant Colony Optimization demo\n");
 
-                int numCities = 60;
+                int numCities = tspInstance.CitiesLength;
                 int numAnts = 4;
-                int maxTime = 1000;
+                int maxTime = 3000;
 
                 Console.WriteLine("Number cities in problem = " + numCities);
 
@@ -49,7 +50,7 @@ namespace AntColony
                 Console.WriteLine("Q (pheromone deposit factor) = " + Q.ToString("F2"));
 
                 Console.WriteLine("\nInitialing dummy graph distances");
-                int[][] dists = MakeGraphDistances(numCities);
+                int[][] dists = MakeGraphDistances(tspInstance);
 
                 Console.WriteLine("\nInitialing ants to random trails\n");
                 int[][] ants = InitAnts(numAnts, numCities);
@@ -412,18 +413,21 @@ namespace AntColony
 
         // --------------------------------------------------------------------------------------------
 
-        private static int[][] MakeGraphDistances(int numCities)
+        private static int[][] MakeGraphDistances(TspInstance tspInstance)
         {
-            int[][] dists = new int[numCities][];
+            int[][] dists = new int[tspInstance.CitiesLength][];
             for (int i = 0; i <= dists.Length - 1; i++)
             {
-                dists[i] = new int[numCities];
+                dists[i] = new int[tspInstance.CitiesLength];
             }
-            for (int i = 0; i <= numCities - 1; i++)
+            for (int i = 0; i <= tspInstance.CitiesLength - 1; i++)
             {
-                for (int j = i + 1; j <= numCities - 1; j++)
+                for (int j = i + 1; j <= tspInstance.CitiesLength - 1; j++)
                 {
-                    int d = random.Next(1, 9);
+                    var cityA = tspInstance.CitiesSet[i + 1]; 
+                    var cityB = tspInstance.CitiesSet[j + 1];
+
+                    var d = (int)cityA.CalcMagnitude(cityB);
                     // [1,8]
                     dists[i][j] = d;
                     dists[j][i] = d;

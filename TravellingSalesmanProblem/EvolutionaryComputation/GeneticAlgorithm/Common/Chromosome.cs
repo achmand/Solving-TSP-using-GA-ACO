@@ -69,8 +69,6 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Common
             }
 
             Genome[index] = gene;
-
-            // TODO -> Should I set fitness to 0 since genome was changed ?
         }
 
         #endregion public methods 

@@ -69,7 +69,7 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
             var antWithShortestPath = FindAntWithShortestPath();
             var shortestPathDistance = antWithShortestPath.PathDistance;
 
-            while (CurrentIteration < 10000)
+            while (CurrentIteration < 1000)
             {
                 // update ant paths based on pheromones (this is not only based on pheromones it has a probabilistic element to it )
                 UpdateAntPaths();
@@ -134,9 +134,6 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
                 // calculates the total distance of the ant's path/trail
                 CalculatePathDistance(ant);
                 Ants[i] = ant;
-
-                //Console.WriteLine(string.Join(",", ant.Path.OrderBy(s => s)));
-                //Console.WriteLine(string.Join(",", ant.Path));
             }
         }
 
@@ -174,7 +171,6 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
                 vistedCities[nextCity - 1] = true;
             }
 
-            //Console.WriteLine(string.Join(",", updatedPath.OrderBy(s => s )));
             return updatedPath;
         }
 
@@ -359,7 +355,6 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
         /// <param name="ant">The <see cref="Ant"/> passed to calculate distance of the current path.</param>
         private void CalculatePathDistance(Ant ant)
         {
-            //var cities = _tspInstance.CitiesSet;
             var path = ant.Path;
 
             var totalDistance = 0.0;
@@ -367,11 +362,6 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
             {
                 var cityIndexA = path[i];
                 var cityIndexB = path[i + 1];
-
-                //var cityA = cities[cityIndexA];
-                //var cityB = cities[cityIndexB];
-
-                //var distance = cityA.CalcMagnitude(cityB);
 
                 var distance = CalculateCitiesDistance(cityIndexA, cityIndexB);
                 totalDistance += distance;

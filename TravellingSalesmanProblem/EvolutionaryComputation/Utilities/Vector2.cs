@@ -25,13 +25,12 @@ namespace EvolutionaryComputation.Utilities
 
         /// <summary>
         /// (readonly) Calculate the squared magnitude of two vectors (length). 
-        /// To compare distances use this instead of <see cref="Magnitude"/> as it is faster to compute.
         /// </summary>
         public double SqrMagnitude => X * X + Y * Y;
 
         /// <summary>
         /// (readonly) Calculate the magnitude of two vectors (length). 
-        /// To compare distances use of <see cref="SqrMagnitude"/> since it is faster to compute.
+        /// To compare distances use <see cref="SqrMagnitude"/> since it is faster to compute.
         /// </summary>
         public double Magnitude => Math.Sqrt(X * X + Y * Y);
 

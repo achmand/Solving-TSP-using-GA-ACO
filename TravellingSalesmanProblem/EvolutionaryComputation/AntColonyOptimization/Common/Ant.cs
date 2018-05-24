@@ -96,48 +96,6 @@ namespace EvolutionaryComputation.AntColonyOptimization.Common
                 return true;
             }
 
-            //// if city A is at index 0 (starting) and city B is the next city [index 1] than return true
-            //if (cityAIndex == 0 && Path[1] == cityB)
-            //{
-            //    return true;
-            //}
-
-
-            //if (cityAIndex == 0 && Path[lastPathIndex] == cityB)
-            //{
-            //    return true;
-            //}
-
-            //if (cityAIndex == 0)
-            //{
-            //    return false;
-            //}
-
-            //if (cityAIndex == lastPathIndex && Path[lastPathIndex - 1] == cityB)
-            //{
-            //    return true;
-            //}
-
-            //if (cityAIndex == lastPathIndex && Path[0] == cityB)
-            //{
-            //    return true;
-            //}
-
-            //if (cityAIndex == lastPathIndex)
-            //{
-            //    return false;
-            //}
-
-            //if (Path[cityAIndex - 1] == cityB)
-            //{
-            //    return true;
-            //}
-
-            //if (Path[cityAIndex + 1] == cityB)
-            //{
-            //    return true;
-            //}
-
             return false;
         }
 

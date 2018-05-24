@@ -2,6 +2,7 @@
 using System.Linq;
 using EvolutionaryComputation.GeneticAlgorithm;
 using EvolutionaryComputation.GeneticAlgorithm.Common;
+using EvolutionaryComputation.Utilities;
 
 namespace EvolutionaryComputation.TspProblem
 {
@@ -40,19 +41,35 @@ namespace EvolutionaryComputation.TspProblem
         /// </summary>
         public void Compute()
         {
+            // Would be nice to clear these console writelines stuff and use events, so I could display them from Program.cs
+
+            Console.WriteLine("\nStart TSP Genetic Algorithm\n");
             CreateInitialPopulation();
-            while (Generation < 10000)
+            var bestIndex = Population.HighestFitnessIndex;
+            var bestChromomsome = Population.Chromosomes[bestIndex]; 
+
+            Console.WriteLine($"Best initial distance: {bestChromomsome.Distance} \n"); // since we are using  SqrMagnitude for faster computation we must convert to Magnitude to show real distance
+
+            while (Generation < 1000)
             {
-                var bestIndex = Population.HighestFitnessIndex;
-                var bestChromomsome = Population.Chromosomes[bestIndex];
-                Console.WriteLine(bestChromomsome.Distance);
+                bestIndex = Population.HighestFitnessIndex;
+
+                var currentBestChromomsome = Population.Chromosomes[bestIndex];
+                if (currentBestChromomsome.Fitness > bestChromomsome.Fitness)
+                {
+                    bestChromomsome = currentBestChromomsome;
+                    Console.WriteLine($"A new shorter distance was found at generation {Generation} with distance {bestChromomsome.Distance}");
+                }
+
                 CreateNextGeneration();
             }
 
-            //var bestIndex = Population.HighestFitnessIndex;
-            //var bestChromomsome = Population.Chromosomes[bestIndex];
+            Console.WriteLine($"\nDistance for the most optimal tour: {bestChromomsome.Distance}");
 
-            Console.WriteLine("Finished");
+            // since we dont have a reference to the starting and ending city [1] in the Genome we add these so we could display them,
+            // as they are taken into consideration when calculating fitness and we always start and end at City with ID 1
+            Console.WriteLine($"1,{string.Join(",", bestChromomsome.GetGenome())},1");
+            Console.WriteLine("\nEnd TSP Genetic Algorithm Finished");
         }
 
         #endregion public methods 
@@ -148,6 +165,11 @@ namespace EvolutionaryComputation.TspProblem
         }
 
         // TODO -> This must be used as a fitness calculator
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chromosome"></param>
         private void CalculateFitness(Chromosome<int> chromosome)
         {
             var citiesSet = _tspInstance.CitiesSet;
@@ -155,17 +177,20 @@ namespace EvolutionaryComputation.TspProblem
             var distance = 0d;
             var genome = chromosome.GetGenome();
 
+            // origin is always the city with ID 1 
             var initialVector = citiesSet[1];
 
+            // we need to calculate the distance from initial city to the first gene/city
             var firstGene = genome[0];
             var firstVector = citiesSet[firstGene];
-            distance += initialVector.CalcMagnitude(firstVector);
+            distance += (initialVector - firstVector).Magnitude;
 
             var genomeLength = genome.Length;
 
+            // we need to calculate the distance from last city to initial city
             var lastGene = genome[genomeLength - 1];
             var lastVector = citiesSet[lastGene];
-            distance += initialVector.CalcMagnitude(lastVector);
+            distance += (initialVector - lastVector).Magnitude;
 
             for (int i = 0; i < genomeLength - 1; i++)
             {
@@ -175,7 +200,7 @@ namespace EvolutionaryComputation.TspProblem
                 var vectorA = citiesSet[geneA];
                 var vectorB = citiesSet[geneB];
 
-                distance += vectorA.CalcMagnitude(vectorB);
+                distance += (vectorA - vectorB).Magnitude;
             }
 
             chromosome.Fitness = 1 / distance; // using inverse since the shortest is better

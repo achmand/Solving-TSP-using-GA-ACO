@@ -10,9 +10,6 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Crossover
     - For more information on cycle crossover visit:
     http://www.rubicite.com/Tutorials/GeneticAlgorithms/CrossoverOperators/CycleCrossoverOperator.aspx
 
-    - How it works ?
-    
-
     This crossover operator will work for permutation encoding
     */
 
