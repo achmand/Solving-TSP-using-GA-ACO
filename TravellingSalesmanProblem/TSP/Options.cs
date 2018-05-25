@@ -23,6 +23,12 @@ namespace TSP
         [Option('a', "algorithm", Required = true, HelpText = "The algorithm which will be used to solve the TSP problem. Options are GeneticAlgorithm, AntColonyOptimization.")]
         public string Algorithm { get; set; }
 
+        /// <summary>
+        /// Shows the algorithm progression. These may slow down the progress. 
+        /// </summary>
+        [Option('G', "showprogression", Required = false, HelpText = "Shows the progression when computing/processing the algorithm.")]
+        public bool ShowProgressionComments { get; set; }
+
         #region algorithm options
 
         /// <summary>

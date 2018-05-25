@@ -74,12 +74,13 @@ namespace EvolutionaryComputation.AntColonyOptimization
         /// <summary>
         /// Processes the ACO to search for an optimal TSP solution until the stopping criteria is met. 
         /// </summary>
-        public void Compute()
+        public void Compute(bool showProgression = true)
         {
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.WriteLine("\nStart TSP Ant Colony Optimization Algorithm");
+            Console.WriteLine($"\nStart TSP Ant Colony Optimization Algorithm [Starting Date Time {DateTime.Now}]");
             Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\nTSP_Instance\n************\nName: {_tspInstance.Name}\nComment: {_tspInstance.Comment}\nDimension: {_tspInstance.Dimensions}\nEdge_Weight_Type: {_tspInstance.EdgeWeightType}");
             Console.WriteLine($"\nOptions\n*********\nAnt_Population: {AcoOptions.TotalAnts}\nAlpha: {AcoOptions.Alpha}\nBeta: {AcoOptions.Beta}\nRho: {AcoOptions.Rho}\nQ: {AcoOptions.Q}\n" +
                               $"{_stoppingCriteria.CriteriaToString()}\n");
             Console.ForegroundColor = ConsoleColor.White;
@@ -112,7 +113,12 @@ namespace EvolutionaryComputation.AntColonyOptimization
                 {
                     shortestPathDistance = currentShortestPathDistance;
                     shortestPath = currentAntWithShortestPath.Path;
-                    Console.WriteLine($"A new shorter distance was found at iteration {CurrentIteration} with length {shortestPathDistance}");
+
+                    if (showProgression)
+                    {
+                        Console.WriteLine(
+                            $"A new shorter distance was found at iteration {CurrentIteration} with length {shortestPathDistance}");
+                    }
                 }
 
                 CurrentIteration++;
@@ -120,7 +126,7 @@ namespace EvolutionaryComputation.AntColonyOptimization
 
             Console.WriteLine($"\nDistance for the most optimal tour: {shortestPathDistance}");
             Console.WriteLine($"{string.Join(",", shortestPath)}");
-            Console.WriteLine("\nEnd Ant Colony Optimization Algorithm - Finished");
+            Console.WriteLine($"\nEnd Ant Colony Optimization Algorithm [Finished Date Time {DateTime.Now}]\n");
         }
 
         #endregion public methods 

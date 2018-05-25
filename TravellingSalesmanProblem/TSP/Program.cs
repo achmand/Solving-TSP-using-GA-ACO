@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CommandLine;
 using EvolutionaryComputation.AntColonyOptimization;
 using EvolutionaryComputation.AntColonyOptimization.Common;
@@ -12,20 +13,22 @@ using EvolutionaryComputation.Utilities;
 
 namespace TSP
 {
-    // TODO -> Implement different ways of distance functions 
+    // TODO -> Implement different ways of distance functions : GEO, ETC..
 
     /* TODO -> Future work (Not for the assignment but for future work)
        -> Implement other evolutionary computation algorithms such as Particle swarm optimization, Swarm Intelligence, Artificial Bee Colony Algorithm, etc.. 
        -> Using floats instead of double could save up memory. 
-       -> Use object pooling to save for optimization (GC).
+       -> Use object pooling for optimization (GC).
        -> Implement IFitness calculator. 
+       -> Use GA to find optimal GA and ACO parameters. 
 
        Genetic Algorithm
             -> Some code refactoring is needed between the GeneticAlgorithm base class and the TSPGeneticAlgorithm to insure it would be easy to implement GA for other problems. 
             -> Research and implement entropy in GA. 
         Ant Colony 
             -> Make use of generics to be able to use ACO for different problems. Similiar to GA's implementation.
-    */
+            -> Implement other Ant Colony Systems, such as MAX-MIN Ant System. 
+         */
 
     class Program
     {
@@ -43,7 +46,7 @@ namespace TSP
 
             var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Tos, CrossoverType.Cycle, MutationType.SingleSwap, 0.1, 0.3, stoppingCriteriaOptions);
             var tspGeneticAlgorithm = new TspGeneticAlgorithm(gaOptions, tspInstance);
-            tspGeneticAlgorithm.Compute();
+            tspGeneticAlgorithm.Compute(false);
 
             //var acoOptions = new ACOOptions(4, 3, 2, 0.01, 2.00, stoppingCriteriaOptions);
             //var aco = new TspAntColonyOptimization(acoOptions, tspInstance);
@@ -62,6 +65,8 @@ namespace TSP
         /// <param name="options">The parsed arguments as <see cref="TspOptions"/> .</param>
         private static void SolveTsp(TspOptions options)
         {
+         
+            
             var tspInstancePath = options.TspInstancePath;
             var tspInstance = new TspInstance(tspInstancePath);
 
@@ -89,6 +94,11 @@ namespace TSP
                             stoppingCriteriaOptions.MaximumIterations = options.StoppingCriteriaIteration;
                             break;
                     }
+
+                    TimeSpan timeSpan;
+                    long memoryConsumed;
+                    long processMemoryConsumed;
+                    var stopWatch = new Stopwatch();
 
                     var population = options.Population;
                     switch (algorithm)
@@ -124,7 +134,20 @@ namespace TSP
                                 elitisimRate, stoppingCriteriaOptions);
                             var tspGeneticAlgorithm = new TspGeneticAlgorithm(genticAlgorithmOptions, tspInstance);
 
-                            tspGeneticAlgorithm.Compute();
+                            var showProgression = options.ShowProgressionComments;
+
+                            stopWatch.Start();
+                            tspGeneticAlgorithm.Compute(showProgression);
+
+                            memoryConsumed = GC.GetTotalMemory(false);
+                            processMemoryConsumed = Process.GetCurrentProcess().WorkingSet64;
+                            stopWatch.Stop();
+
+                            timeSpan = stopWatch.Elapsed;
+
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Time_Elapsed: {0}\nGC_Memory_Consumed: {1}\nProcess_Memory_Consumed: {2}\nTotal_Cities: {3}",
+                                timeSpan.ToString("mm\\:ss\\.ff"), memoryConsumed, processMemoryConsumed, tspInstance.CitiesLength);
                             break;
 
                         // using ACO to solve TSP
@@ -138,7 +161,18 @@ namespace TSP
                             var tspAntColonyOptimization = new TspAntColonyOptimization(antColonyOptimizationOptions,
                                 tspInstance);
 
+                            stopWatch.Start();
                             tspAntColonyOptimization.Compute();
+
+                            memoryConsumed = GC.GetTotalMemory(false);
+                            processMemoryConsumed = Process.GetCurrentProcess().WorkingSet64;
+                            stopWatch.Stop();
+
+                            timeSpan = stopWatch.Elapsed;
+
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Time_Elapsed: {0}\nGC_Memory_Consumed: {1}\nProcess_Memory_Consumed: {2}\nTotal_Cities: {3}",
+                                timeSpan.ToString("mm\\:ss\\.ff"), memoryConsumed, processMemoryConsumed, tspInstance.CitiesLength);
                             break;
                     }
                 }

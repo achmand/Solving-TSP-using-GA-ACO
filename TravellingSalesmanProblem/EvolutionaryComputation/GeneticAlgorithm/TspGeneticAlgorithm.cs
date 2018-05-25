@@ -38,12 +38,13 @@ namespace EvolutionaryComputation.GeneticAlgorithm
         /// <summary>
         /// Processes the GA to search for an optimal TSP solution until the stopping criteria is met. 
         /// </summary>
-        public void Compute()
+        public void Compute(bool showProgression = true)
         {
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.WriteLine("\nStart TSP Genetic Algorithm");
+            Console.WriteLine($"\nStart TSP Genetic Algorithm [Starting Date Time {DateTime.Now}]");
             Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\nTSP_Instance\n************\nName: {_tspInstance.Name}\nComment: {_tspInstance.Comment}\nDimension: {_tspInstance.Dimensions}\nEdge_Weight_Type: {_tspInstance.EdgeWeightType}");
             Console.WriteLine($"\nOptions\n*********\nPopulation: {GaOptions.PopulationSize}\nEncoding_Type: {GaOptions.EncodingType}\nSelection_Operator: {GaOptions.SelectionType}\nCrossover_Operator: {GaOptions.CrossoverType}\nMutation_Operator: {GaOptions.MutationType}" +
                               $"\nMutation_Rate: {GaOptions.MutationRate}\nElite_Rate: {GaOptions.Elitism}\n{StoppingCriteria.CriteriaToString()}\n");
             Console.ForegroundColor = ConsoleColor.White;
@@ -52,7 +53,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm
             var bestIndex = Population.HighestFitnessIndex;
             var bestChromomsome = Population.Chromosomes[bestIndex];
 
-            Console.WriteLine($"Best initial distance: {bestChromomsome.Distance} \n");
+            Console.WriteLine($"Best initial distance: {bestChromomsome.Distance} \nComputing...");
 
             // stops when the stopping criteria is met
             while (!StoppingCriteria.IsCriteriaMet())
@@ -63,7 +64,11 @@ namespace EvolutionaryComputation.GeneticAlgorithm
                 if (currentBestChromomsome.Fitness > bestChromomsome.Fitness)
                 {
                     bestChromomsome = currentBestChromomsome;
-                    Console.WriteLine($"A new shorter distance was found at generation {Generation} with distance {bestChromomsome.Distance}");
+
+                    if (showProgression)
+                    {
+                        Console.WriteLine($"A new shorter distance was found at generation {Generation} with distance {bestChromomsome.Distance}");
+                    }
                 }
 
                 CreateNextGeneration();
@@ -73,7 +78,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm
             // as they are taken into consideration when calculating fitness and we always start and end at City with ID 1
             Console.WriteLine($"\nDistance for the most optimal tour: {bestChromomsome.Distance}");
             Console.WriteLine($"1,{string.Join(",", bestChromomsome.GetGenome())},1");
-            Console.WriteLine("\nEnd TSP Genetic Algorithm - Finished");
+            Console.WriteLine($"\nEnd TSP Genetic Algorithm [Finished Date Time {DateTime.Now}]\n");
         }
 
         #endregion public methods 
