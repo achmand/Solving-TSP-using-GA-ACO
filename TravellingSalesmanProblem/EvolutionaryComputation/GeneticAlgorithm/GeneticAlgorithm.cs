@@ -119,7 +119,11 @@ namespace EvolutionaryComputation.GeneticAlgorithm
             switch (selectionType)
             {
                 case SelectionType.Rws:
-                    SelectionOperator = new RouletteWheel<T>(populationSize, Random);
+                    SelectionOperator = new RouletteWheelSelection<T>(populationSize, Random);
+                    break;
+                case SelectionType.Tos:
+                    // the tournamnet selection percentage is hardcoded for now to 2%, TODO => this must be passed in the GA Options 
+                    SelectionOperator = new TournamentSelection<T>(populationSize, Random, 0.02); 
                     break;
             }
             /*** setting the selection operator to the specified type ***/

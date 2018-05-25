@@ -18,6 +18,7 @@ namespace TSP
        -> Implement other evolutionary computation algorithms such as Particle swarm optimization, Swarm Intelligence, Artificial Bee Colony Algorithm, etc.. 
        -> Using floats instead of double could save up memory. 
        -> Use object pooling to save for optimization (GC).
+       -> Implement IFitness calculator. 
 
        Genetic Algorithm
             -> Some code refactoring is needed between the GeneticAlgorithm base class and the TSPGeneticAlgorithm to insure it would be easy to implement GA for other problems. 
@@ -40,7 +41,7 @@ namespace TSP
                 MaximumIterations = 500
             };
 
-            var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Rws, CrossoverType.Cycle, MutationType.InversionMutation, 0.1, 0.3, stoppingCriteriaOptions);
+            var gaOptions = new GAOptions(1000, EncodingType.Permutation, SelectionType.Tos, CrossoverType.Cycle, MutationType.SingleSwap, 0.1, 0.3, stoppingCriteriaOptions);
             var tspGeneticAlgorithm = new TspGeneticAlgorithm(gaOptions, tspInstance);
             tspGeneticAlgorithm.Compute();
 

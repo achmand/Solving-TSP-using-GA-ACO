@@ -1,15 +1,15 @@
-﻿using System;
+﻿/* NOTES:
+- For more information on single swap mutation visit:
+http://www.rubicite.com/Tutorials/GeneticAlgorithms/MutationOperators/SingleSwapMutationOperator.aspx
+http://mnemstudio.org/genetic-algorithms-mutation.htm
+*/
+
+using System;
 using EvolutionaryComputation.GeneticAlgorithm.Common;
 using EvolutionaryComputation.Utilities;
 
 namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Mutation
 {
-    /* NOTES:
-    - For more information on single swap mutation visit:
-    http://www.rubicite.com/Tutorials/GeneticAlgorithms/MutationOperators/SingleSwapMutationOperator.aspx
-    http://mnemstudio.org/genetic-algorithms-mutation.htm
-    */
-
     /// <summary>
     /// A concrete imlementation of an Inversion Mutation operator. This class inherits from <see cref="MutationOperator{T}"/>. 
     /// Selects two random points from the genome of the <see cref="Chromosome{T}"></see> and reverse the genes between them.

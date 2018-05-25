@@ -16,6 +16,9 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Selection
         /// </summary>
         public abstract SelectionType SelectionType { get; }
 
+        /// <summary>
+        /// An instance of Random used for probabilistic purposes.  
+        /// </summary>
         protected Random Random;
 
         /// <summary>
@@ -36,7 +39,7 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Selection
         /// Constructor with params.
         /// </summary>
         /// <param name="populationSize">The population size.</param>
-        /// <param name="random"></param>
+        /// <param name="random">An instance of random used in the <see cref="SelectionOperator{T}"/>.</param>
         protected SelectionOperator(int populationSize, Random random)
         {
             NormalizedFitness = new double[populationSize];
@@ -57,10 +60,12 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Selection
             return _PopulationSelection(population);
         }
 
+        /// <summary>
+        /// Preparing the selection operator for the next generation.
+        /// </summary>
         public void SetNextGeneration()
         {
-            FitnessNormalized = false; // setting this to false, will call the normalize fitness again thus overwriting the previous values
-            _SetNextGeneration(); 
+            _SetNextGeneration();
         }
 
         #endregion
@@ -74,6 +79,9 @@ namespace EvolutionaryComputation.GeneticAlgorithm.Opertators.Selection
         /// <returns>The candidate <see cref="Chromosome{T}"/> selected by the selection method which will be used for breeding/crossover process.</returns>
         protected abstract Chromosome<T> _PopulationSelection(Population<T> population);
 
+        /// <summary>
+        /// An abstract method to prepare the selection operator for the next generation. This must be implemented in the child classes. 
+        /// </summary>
         protected abstract void _SetNextGeneration();
 
         #endregion private metods

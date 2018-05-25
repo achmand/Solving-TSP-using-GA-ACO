@@ -1,4 +1,7 @@
-﻿namespace EvolutionaryComputation.Utilities
+﻿using System;
+using System.Linq;
+
+namespace EvolutionaryComputation.Utilities
 {
     public static class Helpers
     {
@@ -6,5 +9,7 @@
         {
             return b0 + (b1 - b0) * ((a - a0) / (a1 - a0));
         }
+
+      
     }
 }

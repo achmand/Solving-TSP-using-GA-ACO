@@ -82,7 +82,7 @@ namespace TSP
         /// <summary>
         /// (GA Options) The selection operator type. 
         /// </summary>
-        [Option('N', "selectionop", Required = false, HelpText = "(GA) The selection operator type. Options are RWS.")]
+        [Option('N', "selectionop", Required = false, HelpText = "(GA) The selection operator type. Options are RWS, TOS.")]
         public string SelectionOperator { get; set; }
 
         /// <summary>
@@ -100,13 +100,16 @@ namespace TSP
         /// <summary>
         /// (GA Options) The mutation rate. 
         /// </summary>
-        [Option('O', "mutationrate", Required = false, HelpText = "(GA) The mutation rate. Not all mutation operators use the mutation rate. Mutation Operators which use mutation rate are [InversionMutation,].")]
+        [Option('O', "mutationrate", Required = false, HelpText = "(GA) The mutation rate. Not all mutation operators use the mutation rate." +
+                                                                  "Mutation Operators which use mutation rate are [InversionMutation,]." +
+                                                                  "This value must be between 0 to 1. If it is set to 1 all the chromosome will be mutated.")]
         public double MutationRate { get; set; }
 
         /// <summary>
         /// (GA Options) The elite rate. 
         /// </summary>
-        [Option('E', "eliterate", Required = false, HelpText = "(GA) The elite rate. If set to 0 elitism is not used.")]
+        [Option('E', "eliterate", Required = false, HelpText = "(GA) The elite rate. If set to 0 elitism is not used." +
+                                                               "This value must be between 0 to 1. If it is set to 1 nothing will be changed from generation to generation. ")]
         public double ElitismRate { get; set; }
 
         #endregion GA Options

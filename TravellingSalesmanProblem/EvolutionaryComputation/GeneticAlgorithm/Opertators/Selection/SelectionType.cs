@@ -22,6 +22,5 @@
         /// Tournament selection (TOS). A variant of rank-based selection methods. 
         /// </summary>
         Tos, 
-
     }
 }
