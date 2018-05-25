@@ -1,0 +1,1 @@
+cmd /k %cd%/Program/TSP.exe --help
